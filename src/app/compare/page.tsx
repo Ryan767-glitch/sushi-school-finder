@@ -5,6 +5,7 @@ import { useMemo, type ReactNode } from "react";
 import { useAppState } from "@/context/AppState";
 import { getSchool, schools } from "@/data/schools";
 import { yenFrom, styleLabel, levelLabel, practiceLabel } from "@/lib/format";
+import { googleLabel } from "@/lib/rating";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 
 const rows: { key: string; label: string; get: (s: NonNullable<ReturnType<typeof getSchool>>) => ReactNode }[] = [
@@ -19,7 +20,7 @@ const rows: { key: string; label: string; get: (s: NonNullable<ReturnType<typeof
   { key: "level", label: "対象レベル", get: (s) => s.levels.map(levelLabel).join("〜") },
   { key: "area", label: "エリア", get: (s) => s.areaLabel },
   { key: "style", label: "受講スタイル", get: (s) => s.styles.map(styleLabel).join("・") },
-  { key: "score", label: "総合評価", get: (s) => <span className="text-xl font-black">{s.editorialScore.toFixed(1)}</span> },
+  { key: "score", label: "Google評価", get: (s) => <span className="text-xl font-black">{googleLabel(s).text}</span> },
 ];
 
 export default function ComparePage() {

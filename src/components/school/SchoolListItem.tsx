@@ -4,7 +4,7 @@ import { yenFrom, styleLabel, levelLabel } from "@/lib/format";
 import { SchoolBadge, Pill } from "@/components/ui/Badge";
 import { FavoriteButton } from "./FavoriteButton";
 import { CompareButton } from "./CompareButton";
-import { StarRating } from "@/components/ui/StarRating";
+import { GoogleRating } from "@/components/ui/GoogleRating";
 
 export function SchoolListItem({ school }: { school: School }) {
   return (
@@ -62,8 +62,8 @@ export function SchoolListItem({ school }: { school: School }) {
               <p className="font-bold">{school.levels.map(levelLabel).join("〜")}</p>
             </div>
             <div>
-              <p className="text-[11px] text-muted">総合評価</p>
-              <StarRating value={school.editorialScore} showValue />
+              <p className="text-[11px] text-muted">Google評価</p>
+              <GoogleRating school={school} compact />
             </div>
           </div>
           <div className="flex items-center gap-3">

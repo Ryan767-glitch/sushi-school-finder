@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { StarRating } from "@/components/ui/StarRating";
+import { GoogleRating } from "@/components/ui/GoogleRating";
 import { Pill } from "@/components/ui/Badge";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 import { rankSchools, type RankTab } from "@/lib/ranking";
-import { yenFrom, DATA_AS_OF } from "@/lib/format";
+import { yenFrom } from "@/lib/format";
+import { MAPS_CHECKED } from "@/lib/rating";
 import { schoolCount } from "@/data/schools";
 
 export const metadata = { title: "人気の寿司スクールランキング" };
@@ -42,9 +43,9 @@ export default async function RankingPage({
             人気の<span className="text-coral">寿司スクール</span>ランキング
           </h1>
           <p className="text-muted mt-3 max-w-xl">
-            公開情報をもとに、カリキュラム・支援・費用対効果・実績を総合して編集部が並べています。Googleの公式ランキングではありません。
+            Googleマップの星評価（口コミ件数が多い順で同点を整理）で並べています。APIは使わず、{MAPS_CHECKED}にブラウザで一件ずつ確認しました。
           </p>
-          <p className="text-sm mt-3">更新：{DATA_AS_OF} ／ 調査対象：{schoolCount()}校</p>
+          <p className="text-sm mt-3">確認日：{MAPS_CHECKED} ／ 調査対象：{schoolCount()}校</p>
         </div>
       </section>
 
@@ -71,14 +72,14 @@ export default async function RankingPage({
                   {i + 1}
                 </span>
                 <span className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded">
-                  総合 {s.editorialScore.toFixed(2)}
+                  {s.googleRating != null ? `Google ${s.googleRating.toFixed(1)}` : "Google評価なし"}
                 </span>
               </div>
               <div className="p-4">
                 <h2 className="font-extrabold">{s.name}</h2>
                 <p className="text-xs text-muted">{s.areaLabel}</p>
                 <div className="mt-1">
-                  <StarRating value={s.editorialScore} showValue />
+                  <GoogleRating school={s} compact />
                 </div>
                 <p className="text-sm text-muted mt-2 line-clamp-2">{s.description}</p>
                 <div className="flex flex-wrap gap-1.5 mt-2">
@@ -106,7 +107,7 @@ export default async function RankingPage({
                 <p className="font-extrabold">{s.name}</p>
                 <p className="text-xs text-muted">{s.prefecture}{s.city}</p>
               </div>
-              <StarRating value={s.editorialScore} showValue />
+              <GoogleRating school={s} compact />
               <Link href={`/schools/${s.slug}`} className="text-sm font-bold text-blue">詳細</Link>
               <Link href={`/inquiry?schools=${s.slug}`} className="btn-coral !py-1.5 !px-3 text-sm">資料請求</Link>
             </div>
@@ -116,20 +117,18 @@ export default async function RankingPage({
         <div className="mt-8 grid md:grid-cols-2 gap-4">
           <div className="card p-5">
             <h2 className="font-extrabold">ランキングの評価基準</h2>
-            <p className="text-sm text-muted mt-2">5つの評価項目をもとに総合スコアを算出しています。</p>
+            <p className="text-sm text-muted mt-2">Googleマップの公開星評価を、口コミ件数で同点整理しています。</p>
             <ul className="mt-3 text-sm space-y-1">
-              <li>受講生の満足度 30%</li>
-              <li>カリキュラム・指導 25%</li>
-              <li>サポート体制 20%</li>
-              <li>費用の納得感 15%</li>
-              <li>実績・信頼性 10%</li>
+              <li>1位条件：Googleの星が高い</li>
+              <li>同点：口コミ件数が多い方を上</li>
+              <li>掲載なし・口コミ0件は下位</li>
             </ul>
-            <p className="text-xs text-muted mt-3">※小数点第3位を四捨五入。Googleマップの星そのものではありません。</p>
+            <p className="text-xs text-muted mt-3">※店の評価は学校評価に使いません。最新値は各校のGoogleマップで確認してください。</p>
           </div>
           <div className="card p-5">
-            <h2 className="font-extrabold">編集部コメント</h2>
+            <h2 className="font-extrabold">確認メモ</h2>
             <p className="text-sm leading-relaxed mt-3">
-              今回の並びは、公開されているカリキュラム・学費・支援制度・卒業生の発信を総合したものです。自分の目的やライフスタイルに合った学校選びの参考にしてください。必ず公式サイトとGoogleマップで最新情報を確認してください。
+              {MAPS_CHECKED}にブラウザで全校を検索しました。口コミが提供実習の試食客中心の学校や、学校ページがなく店だけある学校があります。数字は参考値です。
             </p>
           </div>
         </div>

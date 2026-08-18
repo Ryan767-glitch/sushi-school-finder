@@ -4,6 +4,7 @@ import { getSchool, mapsUrl, embedMapsUrl, schools } from "@/data/schools";
 import { reviews } from "@/data/reviews";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { StarRating } from "@/components/ui/StarRating";
+import { GoogleRating } from "@/components/ui/GoogleRating";
 import { Pill } from "@/components/ui/Badge";
 import { FavoriteButton } from "@/components/school/FavoriteButton";
 import { yen, yenFrom, styleLabel, levelLabel, practiceLabel, DATA_AS_OF } from "@/lib/format";
@@ -33,8 +34,8 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
           {s.badges.includes("recommended") ? <span className="badge-rec">おすすめ</span> : null}
           <h1 className="text-3xl font-black mt-2">{s.name}</h1>
           <p className="text-sm text-muted mt-2">{s.areaLabel} / {s.nearestStation}</p>
-          <div className="mt-2 flex items-center gap-2">
-            <StarRating value={s.editorialScore} showValue />
+          <div className="mt-2 flex flex-col gap-1">
+            <GoogleRating school={s} />
             <span className="text-xs text-muted">{s.ratingSource}</span>
           </div>
           <p className="mt-4 leading-relaxed">{s.description}</p>

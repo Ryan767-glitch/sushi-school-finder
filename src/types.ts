@@ -71,6 +71,7 @@ export type School = {
   practiceScore: number;
   googleRating?: number;
   googleReviewCount?: number;
+  googleStatus: "rated" | "no_reviews" | "no_listing";
   ratingSource: string;
   editorialScore: number;
   editorialBreakdown: {

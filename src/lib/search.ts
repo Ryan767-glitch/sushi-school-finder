@@ -1,4 +1,5 @@
 import { schools } from "@/data/schools";
+import { sortByGoogle } from "@/lib/rating";
 import type { LevelId, RegionId, School, StyleId } from "@/types";
 
 export type SearchQuery = {
@@ -85,10 +86,10 @@ export function filterSchools(query: SearchQuery, list: School[] = schools) {
   out = [...out].sort((a, b) => {
     if (sort === "tuition-asc") return a.tuitionFrom - b.tuitionFrom;
     if (sort === "duration-asc") return a.durationMonthsFrom - b.durationMonthsFrom;
-    if (sort === "score-desc") return b.editorialScore - a.editorialScore;
+    if (sort === "score-desc") return sortByGoogle(a, b);
     const ab = a.badges.length - b.badges.length;
     if (ab !== 0) return -ab;
-    return b.editorialScore - a.editorialScore;
+    return sortByGoogle(a, b);
   });
   return out;
 }
