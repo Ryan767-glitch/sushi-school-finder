@@ -2,6 +2,9 @@
 
 日本全国の実在する寿司スクールを比較・検索するサイトです。
 
+- 公開サイト: https://sushi-school-finder.vercel.app
+- GitHub: https://github.com/Ryan767-glitch/sushi-school-finder
+
 ## できること
 
 - 条件検索（通学／オンライン、学費、期間、英語対応、就職・開業支援）
