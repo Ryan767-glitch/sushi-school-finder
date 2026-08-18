@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #1b2430;
+  --muted: #5c6775;
+  --coral: #f2544b;
+  --coral-dark: #de4038;
+  --blue: #2f6fed;
+  --navy: #16325c;
+  --line: #e6eaef;
+  --soft: #f6f8fb;
+  --soft-blue: #f2f6fe;
+  --gold: #f0b429;
+  --bg: #ffffff;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-coral: var(--coral);
+  --color-coral-dark: var(--coral-dark);
+  --color-blue: var(--blue);
+  --color-navy: var(--navy);
+  --color-line: var(--line);
+  --color-soft: var(--soft);
+  --color-soft-blue: var(--soft-blue);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-jp);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-jp), "Hiragino Sans", "Noto Sans JP", sans-serif;
+}
+
+a { color: inherit; }
+
+button, input, select, textarea { font: inherit; }
+
+.container-page {
+  width: min(1160px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.btn-coral {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--coral);
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 12px 20px;
+  transition: background .15s ease;
+}
+.btn-coral:hover { background: var(--coral-dark); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 12px 20px;
+}
+.btn-outline:hover { background: var(--soft); }
+
+.badge-rec {
+  background: var(--coral);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+.badge-pop {
+  background: #fff;
+  color: var(--coral);
+  border: 1px solid var(--coral);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.badge-val {
+  background: #1b2430;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+input, select, textarea {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--coral) 35%, white);
+  border-color: var(--coral);
+}
+
+::selection { background: #ffd5d2; }
