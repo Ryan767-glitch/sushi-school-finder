@@ -55,4 +55,4 @@ export function regionLabel(id: string) {
   return map[id] ?? id;
 }
 
-export const DATA_AS_OF = "2026年8月";
+export const DATA_AS_OF = "2026年8月19日";
