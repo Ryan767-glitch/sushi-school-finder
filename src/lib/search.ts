@@ -15,7 +15,7 @@ export type SearchQuery = {
   open?: boolean;
   intensive?: boolean;
   online?: boolean;
-  sort?: "recommended" | "tuition-asc" | "duration-asc" | "score-desc";
+  sort?: "google" | "tuition-asc" | "duration-asc";
 };
 
 export function parseSearch(sp: Record<string, string | string[] | undefined>): SearchQuery {
@@ -36,7 +36,7 @@ export function parseSearch(sp: Record<string, string | string[] | undefined>): 
     open: g("open") === "1",
     intensive: g("intensive") === "1",
     online: g("online") === "1",
-    sort: (g("sort") as SearchQuery["sort"]) || "recommended",
+    sort: (g("sort") as SearchQuery["sort"]) || "google",
   };
 }
 
@@ -82,13 +82,10 @@ export function filterSchools(query: SearchQuery, list: School[] = schools) {
     return true;
   });
 
-  const sort = query.sort || "recommended";
+  const sort = query.sort || "google";
   out = [...out].sort((a, b) => {
     if (sort === "tuition-asc") return a.tuitionFrom - b.tuitionFrom;
     if (sort === "duration-asc") return a.durationMonthsFrom - b.durationMonthsFrom;
-    if (sort === "score-desc") return sortByGoogle(a, b);
-    const ab = a.badges.length - b.badges.length;
-    if (ab !== 0) return -ab;
     return sortByGoogle(a, b);
   });
   return out;

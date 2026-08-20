@@ -1,4 +1,5 @@
 import type { RegionId, School } from "@/types";
+import { sortByGoogle } from "@/lib/rating";
 
 const commonFaqs = [
   {
@@ -1748,7 +1749,7 @@ export function schoolCount() {
 }
 
 export function featuredSchools() {
-  return schools.filter((s) => s.badges.length > 0).slice(0, 6);
+  return [...schools].sort(sortByGoogle).filter((s) => s.googleStatus === "rated").slice(0, 6);
 }
 
 export function mapsUrl(school: School) {

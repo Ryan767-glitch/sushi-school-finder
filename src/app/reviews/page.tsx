@@ -91,7 +91,7 @@ export default function ReviewsPage() {
           <div className="card p-4 bg-soft-blue">
             <p className="font-bold">口コミは参考に、最終確認は公式と現地で</p>
             <p className="text-sm mt-2">体験レッスンとGoogleマップの最新口コミを必ず見てください。</p>
-            <Link href="/inquiry" className="btn-coral w-full mt-3 text-sm">資料請求する</Link>
+            <Link href="/inquiry" className="btn-coral w-full mt-3 text-sm">公式の資料請求一覧</Link>
           </div>
         </aside>
       </div>

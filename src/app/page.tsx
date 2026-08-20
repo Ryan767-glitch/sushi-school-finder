@@ -15,19 +15,17 @@ export default function HomePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero-nigiri.jpg" alt="" className="w-full h-full object-cover" />
+          <img src="/images/hero-real.jpg" alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/20" />
         </div>
         <div className="container-page relative py-14 md:py-20">
           <h1 className="text-3xl md:text-5xl font-black leading-tight max-w-xl">
-            あなたに合う
+            実在する寿司スクールを、
             <br />
-            寿司スクールを、
-            <br />
-            <span className="text-coral">全国から見つけよう</span>
+            公開情報で比較する
           </h1>
           <p className="mt-4 text-muted max-w-lg">
-            学び方・費用・サポートをまとめて比較。実在する{schoolCount()}校の公開情報をもとに、理想の学校選びをサポートします。
+            {schoolCount()}校の住所・学費・Googleマップ評価を公式サイトと照合して掲載しています。資料請求は各校の公式ページへ進みます。
           </p>
           <div className="mt-8 max-w-4xl">
             <SearchPanel />
@@ -45,7 +43,7 @@ export default function HomePage() {
 
       <section className="container-page mt-14">
         <div className="flex items-end justify-between mb-5">
-          <h2 className="text-xl font-extrabold">注目の寿司スクール</h2>
+          <h2 className="text-xl font-extrabold">Google評価の高いスクール</h2>
           <Link href="/schools" className="text-sm font-bold text-blue">
             すべてのスクールを見る →
           </Link>
@@ -90,8 +88,8 @@ export default function HomePage() {
           {[
             { n: "1", t: "条件を選ぶ", d: "希望の学び方や期間、費用などの条件を選択します。" },
             { n: "2", t: "スクールを比較", d: "気になる学校を比較して、自分に合う学校を見つけます。" },
-            { n: "3", t: "資料請求・体験予約", d: "資料請求や体験レッスンの予約で、さらに詳しい情報をチェック。" },
-            { n: "4", t: "学ぶ・未来へ", d: "スキルを身につけて、憧れの寿司職人へ。" },
+            { n: "3", t: "公式で確認する", d: "学費・日程・体験は各校の公式サイトで最終確認します。" },
+            { n: "4", t: "公式から問い合わせ", d: "資料請求できる学校は、公式のフォームへ直接進みます。" },
           ].map((s) => (
             <div key={s.n} className="card p-5">
               <span className="inline-grid place-items-center w-8 h-8 rounded-full bg-blue text-white font-bold">{s.n}</span>

@@ -4,15 +4,15 @@ import Link from "next/link";
 import { useMemo, type ReactNode } from "react";
 import { useAppState } from "@/context/AppState";
 import { getSchool, schools } from "@/data/schools";
-import { yenFrom, styleLabel, levelLabel, practiceLabel } from "@/lib/format";
+import { yenFrom, styleLabel, levelLabel } from "@/lib/format";
 import { googleLabel } from "@/lib/rating";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { schoolPhoto, getInquiryUrl } from "@/lib/school-media";
 
 const rows: { key: string; label: string; get: (s: NonNullable<ReturnType<typeof getSchool>>) => ReactNode }[] = [
   { key: "tuition", label: "学費", get: (s) => yenFrom(s.tuitionFrom) },
   { key: "duration", label: "期間", get: (s) => `${s.durationMonthsFrom}〜${s.durationMonthsTo}ヶ月` },
   { key: "learn", label: "学べる内容", get: (s) => s.learnItems.join(" / ") },
-  { key: "practice", label: "実習量", get: (s) => `${"★".repeat(s.practiceScore)}${"☆".repeat(5 - s.practiceScore)}（${practiceLabel(s.practiceScore)}）` },
   { key: "job", label: "就職支援", get: (s) => (s.jobSupport ? "あり" : "なし") },
   { key: "open", label: "開業支援", get: (s) => (s.openSupport ? "あり" : "なし") },
   { key: "trial", label: "体験レッスン", get: (s) => (s.trialLesson ? "あり" : "要確認") },
@@ -60,7 +60,7 @@ export default function ComparePage() {
                   {list.map((s) => (
                     <th key={s!.slug} className="p-3 align-top">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={s!.image} alt="" className="h-24 w-full object-cover rounded-lg" />
+                      <img src={schoolPhoto(s!)} alt="" className="h-24 w-full object-cover rounded-lg bg-soft" />
                       <p className="font-extrabold mt-2">{s!.name}</p>
                     </th>
                   ))}
@@ -84,9 +84,11 @@ export default function ComparePage() {
                       <Link href={`/schools/${s!.slug}`} className="btn-coral w-full !py-2 text-sm">
                         詳細を見る
                       </Link>
-                      <Link href={`/inquiry?schools=${s!.slug}`} className="btn-outline w-full !py-2 text-sm mt-2">
-                        資料請求
-                      </Link>
+                      {getInquiryUrl(s!) ? (
+                        <a href={getInquiryUrl(s!)} target="_blank" rel="noopener noreferrer" className="btn-outline w-full !py-2 text-sm mt-2">
+                          公式で資料請求
+                        </a>
+                      ) : null}
                     </td>
                   ))}
                 </tr>
@@ -111,13 +113,10 @@ export default function ComparePage() {
 
       <section className="mt-10 card p-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-soft-blue">
         <div>
-          <h2 className="text-xl font-extrabold">あなたに合う寿司スクールをプロがご提案します</h2>
-          <p className="text-sm text-muted mt-1">ご希望やご予算に合わせて、最適なスクールをご紹介します。</p>
+          <h2 className="text-xl font-extrabold">資料請求は各校の公式サイトへ</h2>
+          <p className="text-sm text-muted mt-1">当サイトは代理請求しません。公式フォームがある学校だけ案内しています。</p>
         </div>
-        <div className="flex flex-col gap-2">
-          <Link href="/inquiry" className="btn-coral">無料で相談してみる</Link>
-          <Link href="/diagnosis" className="btn-outline">スクール診断をはじめる</Link>
-        </div>
+        <Link href="/inquiry" className="btn-coral">公式の資料請求一覧</Link>
       </section>
     </div>
   );

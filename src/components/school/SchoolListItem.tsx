@@ -1,22 +1,19 @@
 import Link from "next/link";
 import type { School } from "@/types";
 import { yenFrom, styleLabel, levelLabel } from "@/lib/format";
-import { SchoolBadge, Pill } from "@/components/ui/Badge";
+import { Pill } from "@/components/ui/Badge";
 import { FavoriteButton } from "./FavoriteButton";
 import { CompareButton } from "./CompareButton";
 import { GoogleRating } from "@/components/ui/GoogleRating";
+import { OfficialInquiry } from "./OfficialInquiry";
+import { schoolPhoto } from "@/lib/school-media";
 
 export function SchoolListItem({ school }: { school: School }) {
   return (
     <article className="card p-3 md:p-4 flex flex-col md:flex-row gap-4">
       <div className="relative md:w-56 shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={school.image} alt="" className="h-40 md:h-full w-full object-cover rounded-xl" />
-        <div className="absolute top-2 left-2 flex gap-1">
-          {school.badges.map((b) => (
-            <SchoolBadge key={b} id={b} />
-          ))}
-        </div>
+        <img src={schoolPhoto(school)} alt={`${school.name}の写真`} className="h-40 md:h-full w-full object-cover rounded-xl bg-soft" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
@@ -71,9 +68,7 @@ export function SchoolListItem({ school }: { school: School }) {
             <Link href={`/schools/${school.slug}`} className="text-sm font-bold text-blue">
               詳細を見る
             </Link>
-            <Link href={`/inquiry?schools=${school.slug}`} className="btn-coral !py-2 !px-4 text-sm">
-              資料請求する
-            </Link>
+            <OfficialInquiry school={school} className="btn-coral !py-2 !px-4 text-sm" />
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSchool, mapsUrl, embedMapsUrl, schools } from "@/data/schools";
 import { reviews } from "@/data/reviews";
@@ -7,7 +6,9 @@ import { StarRating } from "@/components/ui/StarRating";
 import { GoogleRating } from "@/components/ui/GoogleRating";
 import { Pill } from "@/components/ui/Badge";
 import { FavoriteButton } from "@/components/school/FavoriteButton";
-import { yen, yenFrom, styleLabel, levelLabel, practiceLabel, DATA_AS_OF } from "@/lib/format";
+import { yen, yenFrom, styleLabel, levelLabel, DATA_AS_OF } from "@/lib/format";
+import { schoolPhoto, getInquiryUrl } from "@/lib/school-media";
+import { OfficialInquiry } from "@/components/school/OfficialInquiry";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -31,7 +32,6 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
       <Breadcrumb items={[{ href: "/", label: "ホーム" }, { href: "/schools", label: "スクールを探す" }, { label: s.name }]} />
       <div className="mt-5 grid lg:grid-cols-[1fr_340px] gap-6">
         <div>
-          {s.badges.includes("recommended") ? <span className="badge-rec">おすすめ</span> : null}
           <h1 className="text-3xl font-black mt-2">{s.name}</h1>
           <p className="text-sm text-muted mt-2">{s.areaLabel} / {s.nearestStation}</p>
           <div className="mt-2 flex flex-col gap-1">
@@ -43,11 +43,10 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
             <FavoriteButton slug={s.slug} />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {s.gallery.slice(0, 4).map((src, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={src} src={src} alt="" className={`${i === 0 ? "col-span-2 h-44" : "h-24"} w-full object-cover rounded-xl`} />
-          ))}
+        <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={schoolPhoto(s)} alt={`${s.name}の写真`} className="w-full h-64 object-cover rounded-xl bg-soft" />
+          <p className="text-[11px] text-muted mt-1">写真は公式サイトまたはGoogleマップの公開画像です。最新の様子は公式と地図でご確認ください。</p>
         </div>
       </div>
 
@@ -59,7 +58,7 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
         <Info k="就職支援" v={s.jobSupport ? "あり" : "なし"} />
         <Info k="体験レッスン" v={s.trialLesson ? "あり" : "要確認"} />
         <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
-          <Link href={`/inquiry?schools=${s.slug}`} className="btn-coral !py-2 text-sm">資料請求（無料）</Link>
+          {getInquiryUrl(s) ? <OfficialInquiry school={s} className="btn-coral !py-2 text-sm" /> : <a href={s.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-outline !py-2 text-sm">公式サイト</a>}
         </div>
       </div>
 
@@ -80,10 +79,7 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
             <div className="mt-4 grid md:grid-cols-3 gap-4">
               {s.courses.map((c) => (
                 <article key={c.id} className="border border-line rounded-xl overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={c.image} alt="" className="h-28 w-full object-cover" />
                   <div className="p-3">
-                    {c.popular ? <span className="badge-rec">人気</span> : null}
                     <h3 className="font-extrabold mt-1">{c.name}</h3>
                     <p className="text-xs text-muted mt-1">{c.summary}</p>
                     <p className="text-xs mt-2">期間 {c.durationLabel} / {c.sessionsLabel}</p>
@@ -204,16 +200,16 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
                 <Pill key={x}>{x}</Pill>
               ))}
             </div>
-            <p className="text-sm mt-3">実習量: {practiceLabel(s.practiceScore)}</p>
+            <p className="text-xs text-muted mt-3">実習量の目安は公式の授業時間・回数でご確認ください。</p>
           </div>
         </aside>
       </div>
 
       <section className="mt-10 card p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="font-extrabold text-lg">まずは資料請求 または 体験レッスンで雰囲気を体験</p>
+        <p className="font-extrabold text-lg">最新の学費・空き・体験は公式サイトで確認してください</p>
         <div className="flex gap-3">
-          <Link href={`/inquiry?schools=${s.slug}`} className="btn-coral">資料請求（無料）</Link>
-          <a href={s.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-outline">公式で体験を予約</a>
+          <OfficialInquiry school={s} className="btn-coral" />
+          <a href={s.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-outline">公式サイトを開く</a>
         </div>
       </section>
     </div>

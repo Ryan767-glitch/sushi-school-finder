@@ -7,6 +7,8 @@ import { rankSchools, type RankTab } from "@/lib/ranking";
 import { yenFrom } from "@/lib/format";
 import { MAPS_CHECKED } from "@/lib/rating";
 import { schoolCount } from "@/data/schools";
+import { schoolPhoto } from "@/lib/school-media";
+import { OfficialInquiry } from "@/components/school/OfficialInquiry";
 
 export const metadata = { title: "人気の寿司スクールランキング" };
 
@@ -34,7 +36,7 @@ export default async function RankingPage({
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero-nigiri.jpg" alt="" className="w-full h-full object-cover" />
+          <img src="/images/hero-real.jpg" alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/30" />
         </div>
         <div className="container-page relative py-10">
@@ -43,7 +45,7 @@ export default async function RankingPage({
             人気の<span className="text-coral">寿司スクール</span>ランキング
           </h1>
           <p className="text-muted mt-3 max-w-xl">
-            Googleマップの星評価（口コミ件数が多い順で同点を整理）で並べています。APIは使わず、{MAPS_CHECKED}にブラウザで一件ずつ確認しました。
+            Googleマップの星と口コミ件数を組み合わせて並べています（件数が極端に少ない5.0が上位に来ないようにしています）。APIは使わず、{MAPS_CHECKED}にブラウザで一件ずつ確認しました。
           </p>
           <p className="text-sm mt-3">確認日：{MAPS_CHECKED} ／ 調査対象：{schoolCount()}校</p>
         </div>
@@ -67,7 +69,7 @@ export default async function RankingPage({
             <article key={s.slug} className="card overflow-hidden">
               <div className="relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.image} alt="" className="h-40 w-full object-cover" />
+                <img src={schoolPhoto(s)} alt="" className="h-40 w-full object-cover bg-soft" />
                 <span className="absolute top-3 left-3 w-8 h-8 rounded-full bg-white grid place-items-center font-black">
                   {i + 1}
                 </span>
@@ -90,7 +92,7 @@ export default async function RankingPage({
                 <p className="font-extrabold mt-3">{yenFrom(s.tuitionFrom)}</p>
                 <div className="flex gap-2 mt-3">
                   <Link href={`/schools/${s.slug}`} className="btn-outline !py-2 text-sm flex-1">詳細を見る</Link>
-                  <Link href={`/inquiry?schools=${s.slug}`} className="btn-coral !py-2 text-sm flex-1">資料請求</Link>
+                  <OfficialInquiry school={s} className="btn-coral !py-2 text-sm flex-1" />
                 </div>
               </div>
             </article>
@@ -102,14 +104,14 @@ export default async function RankingPage({
             <div key={s.slug} className="p-3 md:p-4 flex flex-wrap items-center gap-3">
               <span className="w-8 font-black text-muted">{i + 4}</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.image} alt="" className="w-16 h-12 object-cover rounded-lg" />
+              <img src={schoolPhoto(s)} alt="" className="w-16 h-12 object-cover rounded-lg bg-soft" />
               <div className="flex-1 min-w-[160px]">
                 <p className="font-extrabold">{s.name}</p>
                 <p className="text-xs text-muted">{s.prefecture}{s.city}</p>
               </div>
               <GoogleRating school={s} compact />
               <Link href={`/schools/${s.slug}`} className="text-sm font-bold text-blue">詳細</Link>
-              <Link href={`/inquiry?schools=${s.slug}`} className="btn-coral !py-1.5 !px-3 text-sm">資料請求</Link>
+              <OfficialInquiry school={s} className="btn-coral !py-1.5 !px-3 text-sm" />
             </div>
           ))}
         </div>
@@ -117,10 +119,10 @@ export default async function RankingPage({
         <div className="mt-8 grid md:grid-cols-2 gap-4">
           <div className="card p-5">
             <h2 className="font-extrabold">ランキングの評価基準</h2>
-            <p className="text-sm text-muted mt-2">Googleマップの公開星評価を、口コミ件数で同点整理しています。</p>
+            <p className="text-sm text-muted mt-2">星評価と口コミ件数を組み合わせたスコアで並べています。口コミが少ない高評価は、件数が増えるまで順位を抑えます。</p>
             <ul className="mt-3 text-sm space-y-1">
-              <li>1位条件：Googleの星が高い</li>
-              <li>同点：口コミ件数が多い方を上</li>
+              <li>学校としてのGoogle掲載がある校を対象</li>
+              <li>口コミ件数が多いほど星の信頼度を高く見る</li>
               <li>掲載なし・口コミ0件は下位</li>
             </ul>
             <p className="text-xs text-muted mt-3">※店の評価は学校評価に使いません。最新値は各校のGoogleマップで確認してください。</p>

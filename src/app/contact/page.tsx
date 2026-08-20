@@ -9,11 +9,16 @@ export default function ContactPage() {
       <Breadcrumb items={[{ href: "/", label: "ホーム" }, { label: "お問い合わせ" }]} />
       <h1 className="text-3xl font-black mt-4">お問い合わせ</h1>
       <p className="mt-4 leading-8">
-        掲載内容の修正依頼、学校の追加掲載、サイト全般のご質問は資料請求フォームの備考欄、またはドメイン設定後の公式メールアドレスへご連絡ください。
+        掲載内容の修正依頼、学校の追加掲載、サイト全般のご質問は、GitHubのリポジトリ、または各校の公式サイトへご連絡ください。学校への資料請求は当サイトでは受け付けていません。
       </p>
-      <Link href="/inquiry" className="btn-coral mt-6 inline-flex">
-        フォームから連絡する
-      </Link>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Link href="/inquiry" className="btn-coral">
+          公式の資料請求一覧
+        </Link>
+        <a href="https://github.com/Ryan767-glitch/sushi-school-finder" target="_blank" rel="noopener noreferrer" className="btn-outline">
+          GitHub
+        </a>
+      </div>
     </div>
   );
 }

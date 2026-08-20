@@ -8,7 +8,7 @@ export default function TermsPage() {
       <Breadcrumb items={[{ href: "/", label: "ホーム" }, { label: "利用規約" }]} />
       <h1 className="text-3xl font-black mt-4">利用規約</h1>
       <div className="space-y-4 mt-6 leading-8">
-        <p>本サイトの閲覧・資料請求により、本規約に同意したものとみなします。</p>
+        <p>本サイトの閲覧により、本規約に同意したものとみなします。学校への資料請求・申込は各校公式サイトで行われます。</p>
         <h2 className="text-xl font-extrabold">禁止事項</h2>
         <ul className="list-disc pl-5">
           <li>不正アクセス、過度な連続送信、スクレイピングによる負荷</li>

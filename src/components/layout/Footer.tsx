@@ -25,8 +25,7 @@ export function Footer() {
           <p className="font-bold mb-3">読む</p>
           <ul className="space-y-2 text-muted">
             <li><Link href="/articles">特集・コラム</Link></li>
-            <li><Link href="/diagnosis">スクール診断</Link></li>
-            <li><Link href="/inquiry">資料請求・体験予約</Link></li>
+            <li><Link href="/inquiry">公式サイトで資料請求</Link></li>
             <li><Link href="/about">運営について</Link></li>
             <li><Link href="/contact">お問い合わせ</Link></li>
           </ul>

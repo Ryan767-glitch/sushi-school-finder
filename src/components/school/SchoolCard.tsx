@@ -1,20 +1,17 @@
 import Link from "next/link";
 import type { School } from "@/types";
 import { yenFrom, styleLabel } from "@/lib/format";
-import { SchoolBadge, Pill } from "@/components/ui/Badge";
+import { Pill } from "@/components/ui/Badge";
+import { GoogleRating } from "@/components/ui/GoogleRating";
 import { FavoriteButton } from "./FavoriteButton";
+import { schoolPhoto } from "@/lib/school-media";
 
 export function SchoolCard({ school }: { school: School }) {
   return (
     <article className="card overflow-hidden flex flex-col">
       <div className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={school.image} alt="" className="h-44 w-full object-cover" />
-        <div className="absolute top-3 left-3 flex gap-1.5">
-          {school.badges.map((b) => (
-            <SchoolBadge key={b} id={b} />
-          ))}
-        </div>
+        <img src={schoolPhoto(school)} alt={`${school.name}の写真`} className="h-44 w-full object-cover bg-soft" />
         <div className="absolute top-3 right-3">
           <FavoriteButton slug={school.slug} compact />
         </div>
@@ -26,6 +23,7 @@ export function SchoolCard({ school }: { school: School }) {
           </Link>
         </h3>
         <p className="text-xs text-muted">{school.areaLabel}</p>
+        <GoogleRating school={school} compact />
         <div className="flex flex-wrap gap-1.5">
           {school.trialLesson ? <Pill>体験あり</Pill> : null}
           {school.jobSupport ? <Pill>就職支援</Pill> : null}

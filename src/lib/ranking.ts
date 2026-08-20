@@ -12,10 +12,3 @@ export function rankSchools(tab: RankTab = "all"): School[] {
   if (tab === "online") list = list.filter((s) => s.onlineAvailable);
   return list.sort(sortByGoogle);
 }
-
-export function composite(s: School) {
-  const b = s.editorialBreakdown;
-  return Number(
-    (b.satisfaction * 0.3 + b.curriculum * 0.25 + b.support * 0.2 + b.value * 0.15 + b.reputation * 0.1).toFixed(2),
-  );
-}

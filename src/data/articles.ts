@@ -22,7 +22,7 @@ export const articles: Article[] = [
     category: "スクール選び",
     author: "SUSHI SCHOOL FINDER 編集部",
     authorRole: "公開情報の調査・編集",
-    image: "/images/cutting-tuna.jpg",
+    image: "/images/nigiri-real.jpg",
     readMinutes: 8,
     related: ["sushi-school-types", "tuition-guide", "career-paths"],
     sections: [
@@ -78,7 +78,7 @@ export const articles: Article[] = [
     category: "スクール選び",
     author: "SUSHI SCHOOL FINDER 編集部",
     authorRole: "公開情報の調査・編集",
-    image: "/images/classroom.jpg",
+    image: "/images/counter-real.jpg",
     readMinutes: 6,
     related: ["how-to-become-sushi-chef", "tuition-guide"],
     sections: [
@@ -116,7 +116,7 @@ export const articles: Article[] = [
     category: "費用",
     author: "SUSHI SCHOOL FINDER 編集部",
     authorRole: "公開情報の調査・編集",
-    image: "/images/nigiri-platter.jpg",
+    image: "/images/nigiri-real.jpg",
     readMinutes: 5,
     related: ["how-to-become-sushi-chef", "career-paths"],
     sections: [
@@ -143,7 +143,7 @@ export const articles: Article[] = [
     category: "職業ガイド",
     author: "SUSHI SCHOOL FINDER 編集部",
     authorRole: "公開情報の調査・編集",
-    image: "/images/interior.jpg",
+    image: "/images/hero-real.jpg",
     readMinutes: 6,
     related: ["how-to-become-sushi-chef", "who-fits"],
     sections: [
@@ -169,7 +169,7 @@ export const articles: Article[] = [
     category: "職業ガイド",
     author: "SUSHI SCHOOL FINDER 編集部",
     authorRole: "公開情報の調査・編集",
-    image: "/images/forming-nigiri.jpg",
+    image: "/images/nigiri-real.jpg",
     readMinutes: 4,
     related: ["career-paths", "how-to-become-sushi-chef"],
     sections: [

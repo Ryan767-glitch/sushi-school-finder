@@ -15,9 +15,9 @@ export default function BeginnerPage() {
             寿司スクール選びに迷っていませんか？このページでは、学校の選び方や学び方の種類、費用の目安など、はじめての方に役立つ情報をわかりやすくご紹介します。
           </p>
         </div>
-        <div className="relative">
+        <div className="relative hidden lg:block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/portrait-chef-m30.jpg" alt="" className="rounded-2xl w-full object-cover" />
+          <img src="/images/nigiri-real.jpg" alt="寿司の写真" className="rounded-2xl w-full object-cover bg-soft" />
         </div>
       </div>
 
@@ -28,7 +28,7 @@ export default function BeginnerPage() {
             ["1", "目的を決める", "趣味で学びたいのか、転職・独立を目指したいのか。まずは目的を明確にしましょう。"],
             ["2", "条件を整理する", "通学エリアや学習期間、費用、サポート体制など、希望条件を洗い出しましょう。"],
             ["3", "スクールを比較する", "複数の学校を比較して、カリキュラムや実績、口コミをチェックしましょう。"],
-            ["4", "体験・資料請求をする", "気になる学校は体験入学や資料請求で、実際の雰囲気や内容を確認しましょう。"],
+            ["4", "公式で確認する", "体験や資料請求は、各校の公式サイトから直接申し込みましょう。"],
           ].map(([n, t, d]) => (
             <div key={n} className="card p-5">
               <span className="inline-grid place-items-center w-8 h-8 rounded-full bg-blue text-white font-bold">{n}</span>
@@ -89,15 +89,13 @@ export default function BeginnerPage() {
         <h2 className="text-xl font-extrabold mb-4">こんな人におすすめ</h2>
         <div className="grid md:grid-cols-5 gap-3">
           {[
-            ["寿司職人を目指したい方", "/images/portrait-chef-m20.jpg"],
-            ["転職・キャリアチェンジしたい方", "/images/portrait-woman.jpg"],
-            ["独立・開業を目指したい方", "/images/portrait-chef-m40.jpg"],
-            ["趣味で学びたい方", "/images/portrait-chef-f20.jpg"],
-            ["海外で活躍したい方", "/images/portrait-chef-m30.jpg"],
-          ].map(([t, img]) => (
+            "寿司職人を目指したい方",
+            "転職・キャリアチェンジしたい方",
+            "独立・開業を目指したい方",
+            "趣味で学びたい方",
+            "海外で活躍したい方",
+          ].map((t) => (
             <div key={t} className="card p-4 text-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img} alt="" className="w-20 h-20 rounded-full object-cover mx-auto" />
               <p className="font-bold mt-3 text-sm">{t}</p>
             </div>
           ))}
