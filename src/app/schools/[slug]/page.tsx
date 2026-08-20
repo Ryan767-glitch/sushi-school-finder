@@ -9,6 +9,7 @@ import { FavoriteButton } from "@/components/school/FavoriteButton";
 import { yen, yenFrom, styleLabel, levelLabel, DATA_AS_OF } from "@/lib/format";
 import { schoolPhoto, getInquiryUrl } from "@/lib/school-media";
 import { OfficialInquiry } from "@/components/school/OfficialInquiry";
+import { Icon, type IconName } from "@/components/ui/Icon";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -33,7 +34,10 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
       <div className="mt-5 grid lg:grid-cols-[1fr_340px] gap-6">
         <div>
           <h1 className="text-3xl font-black mt-2">{s.name}</h1>
-          <p className="text-sm text-muted mt-2">{s.areaLabel} / {s.nearestStation}</p>
+          <p className="text-sm text-muted mt-2 inline-flex items-center gap-1">
+            <Icon name="pin" size={14} />
+            {s.areaLabel} / {s.nearestStation}
+          </p>
           <div className="mt-2 flex flex-col gap-1">
             <GoogleRating school={s} />
             <span className="text-xs text-muted">{s.ratingSource}</span>
@@ -51,12 +55,12 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
       </div>
 
       <div className="mt-6 card p-4 grid grid-cols-2 md:grid-cols-7 gap-3 text-center">
-        <Info k="学費目安" v={yenFrom(s.tuitionFrom)} />
-        <Info k="受講スタイル" v={s.styles.map(styleLabel).join("・")} />
-        <Info k="期間" v={`${s.durationMonthsFrom}〜${s.durationMonthsTo}ヶ月`} />
-        <Info k="対象レベル" v={s.levels.map(levelLabel).join("〜")} />
-        <Info k="就職支援" v={s.jobSupport ? "あり" : "なし"} />
-        <Info k="体験レッスン" v={s.trialLesson ? "あり" : "要確認"} />
+        <Info icon="yen" k="学費目安" v={yenFrom(s.tuitionFrom)} />
+        <Info icon="commute" k="受講スタイル" v={s.styles.map(styleLabel).join("・")} />
+        <Info icon="calendar" k="期間" v={`${s.durationMonthsFrom}〜${s.durationMonthsTo}ヶ月`} />
+        <Info icon="chart" k="対象レベル" v={s.levels.map(levelLabel).join("〜")} />
+        <Info icon="handshake" k="就職支援" v={s.jobSupport ? "あり" : "なし"} />
+        <Info icon="person" k="体験レッスン" v={s.trialLesson ? "あり" : "要確認"} />
         <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
           {getInquiryUrl(s) ? <OfficialInquiry school={s} className="btn-coral !py-2 text-sm" /> : <a href={s.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-outline !py-2 text-sm">公式サイト</a>}
         </div>
@@ -176,11 +180,12 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-            <p className="text-sm mt-3">{s.address}</p>
-            <p className="text-sm text-muted">{s.nearestStation}</p>
-            {s.phone ? <p className="text-sm mt-1">電話 {s.phone}</p> : null}
-            {s.hours ? <p className="text-sm text-muted">{s.hours}</p> : null}
+            <p className="text-sm mt-3 inline-flex items-start gap-2"><Icon name="pin" size={14} />{s.address}</p>
+            <p className="text-sm text-muted inline-flex items-center gap-2"><Icon name="train" size={14} />{s.nearestStation}</p>
+            {s.phone ? <p className="text-sm mt-1 inline-flex items-center gap-2"><Icon name="phone" size={14} />{s.phone}</p> : null}
+            {s.hours ? <p className="text-sm text-muted inline-flex items-center gap-2"><Icon name="clock" size={14} />{s.hours}</p> : null}
             <a href={mapsUrl(s)} target="_blank" rel="noopener noreferrer" className="btn-outline w-full mt-3 text-sm">
+              <Icon name="pin" size={14} />
               Googleマップで見る
             </a>
             <a href={s.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-coral w-full mt-2 text-sm">
@@ -188,7 +193,7 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
             </a>
           </div>
           <div className="card p-4 bg-soft-blue">
-            <h2 className="font-extrabold">就職・独立サポート</h2>
+            <h2 className="font-extrabold inline-flex items-center gap-2"><Icon name="handshake" size={20} />就職・独立サポート</h2>
             <ul className="mt-3 space-y-1 text-sm">
               {s.jobSupportDetails.length ? s.jobSupportDetails.map((d) => <li key={d}>✓ {d}</li>) : <li>公式サイトでご確認ください</li>}
             </ul>
@@ -206,20 +211,26 @@ export default async function SchoolDetailPage({ params }: { params: Promise<{ s
       </div>
 
       <section className="mt-10 card p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="font-extrabold text-lg">最新の学費・空き・体験は公式サイトで確認してください</p>
+        <p className="font-extrabold text-lg">まずは資料請求 または 公式サイトで雰囲気を確認</p>
         <div className="flex gap-3">
-          <OfficialInquiry school={s} className="btn-coral" />
-          <a href={s.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-outline">公式サイトを開く</a>
+          <OfficialInquiry school={s} className="btn-coral" label="公式で資料請求（無料）" />
+          <a href={s.officialUrl} target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <Icon name="search" size={16} />
+            公式サイトを開く
+          </a>
         </div>
       </section>
     </div>
   );
 }
 
-function Info({ k, v }: { k: string; v: string }) {
+function Info({ icon, k, v }: { icon: IconName; k: string; v: string }) {
   return (
     <div>
-      <p className="text-[11px] text-muted">{k}</p>
+      <p className="text-[11px] text-muted inline-flex items-center gap-1 justify-center w-full">
+        <Icon name={icon} size={14} />
+        {k}
+      </p>
       <p className="font-extrabold text-sm mt-1">{v}</p>
     </div>
   );

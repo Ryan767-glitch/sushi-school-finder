@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 
 export function CtaBanner({
   title = "あなたに合う寿司スクールを、今すぐ検索",
@@ -16,9 +17,11 @@ export function CtaBanner({
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link href="/schools" className="btn-coral">
+            <Icon name="search" size={16} className="text-white" />
             スクールを探す
           </Link>
           <Link href="/favorites" className="btn-outline">
+            <Icon name="heart" size={16} className="text-coral" />
             お気に入り
           </Link>
         </div>

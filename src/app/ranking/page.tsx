@@ -9,15 +9,16 @@ import { MAPS_CHECKED } from "@/lib/rating";
 import { schoolCount } from "@/data/schools";
 import { schoolPhoto } from "@/lib/school-media";
 import { OfficialInquiry } from "@/components/school/OfficialInquiry";
+import { Icon, type IconName } from "@/components/ui/Icon";
 
 export const metadata = { title: "人気の寿司スクールランキング" };
 
-const tabs: { id: RankTab; label: string }[] = [
-  { id: "all", label: "総合" },
-  { id: "beginner", label: "初心者向け" },
-  { id: "intensive", label: "短期集中" },
-  { id: "open", label: "開業支援" },
-  { id: "online", label: "オンライン対応" },
+const tabs: { id: RankTab; label: string; icon: IconName }[] = [
+  { id: "all", label: "総合", icon: "trophy" },
+  { id: "beginner", label: "初心者向け", icon: "person" },
+  { id: "intensive", label: "短期集中", icon: "bolt" },
+  { id: "open", label: "開業支援", icon: "handshake" },
+  { id: "online", label: "オンライン対応", icon: "laptop" },
 ];
 
 export default async function RankingPage({
@@ -47,7 +48,10 @@ export default async function RankingPage({
           <p className="text-muted mt-3 max-w-xl">
             Googleマップの星と口コミ件数を組み合わせて並べています（件数が極端に少ない5.0が上位に来ないようにしています）。APIは使わず、{MAPS_CHECKED}にブラウザで一件ずつ確認しました。
           </p>
-          <p className="text-sm mt-3">確認日：{MAPS_CHECKED} ／ 調査対象：{schoolCount()}校</p>
+          <p className="text-sm mt-3 inline-flex flex-wrap gap-4">
+            <span className="inline-flex items-center gap-1"><Icon name="calendar" size={14} />確認日：{MAPS_CHECKED}</span>
+            <span className="inline-flex items-center gap-1"><Icon name="school" size={14} />調査対象：{schoolCount()}校</span>
+          </p>
         </div>
       </section>
 
@@ -59,7 +63,10 @@ export default async function RankingPage({
               href={`/ranking?tab=${t.id}`}
               className={`px-4 py-2 rounded-lg text-sm font-bold ${active === t.id ? "bg-navy text-white" : "text-muted hover:bg-soft"}`}
             >
-              {t.label}
+              <span className="inline-flex items-center gap-1.5">
+                <Icon name={t.icon} size={15} className={active === t.id ? "text-white" : "text-blue"} />
+                {t.label}
+              </span>
             </Link>
           ))}
         </div>
@@ -70,7 +77,7 @@ export default async function RankingPage({
               <div className="relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={schoolPhoto(s)} alt="" className="h-40 w-full object-cover bg-soft" />
-                <span className="absolute top-3 left-3 w-8 h-8 rounded-full bg-white grid place-items-center font-black">
+                <span className={`absolute top-3 left-3 w-8 h-8 rounded-full grid place-items-center font-black text-white ${i === 0 ? "bg-[#d4af37]" : i === 1 ? "bg-[#9aa3ad]" : "bg-[#c08a54]"}`}>
                   {i + 1}
                 </span>
                 <span className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded">
@@ -120,6 +127,11 @@ export default async function RankingPage({
           <div className="card p-5">
             <h2 className="font-extrabold">ランキングの評価基準</h2>
             <p className="text-sm text-muted mt-2">星評価と口コミ件数を組み合わせたスコアで並べています。口コミが少ない高評価は、件数が増えるまで順位を抑えます。</p>
+            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
+              <div><Icon name="star" size={22} className="mx-auto text-gold" /><p className="mt-1 font-bold">Google評価</p></div>
+              <div><Icon name="chat" size={22} className="mx-auto" /><p className="mt-1 font-bold">口コミ件数</p></div>
+              <div><Icon name="shield" size={22} className="mx-auto" /><p className="mt-1 font-bold">学校掲載のみ</p></div>
+            </div>
             <ul className="mt-3 text-sm space-y-1">
               <li>学校としてのGoogle掲載がある校を対象</li>
               <li>口コミ件数が多いほど星の信頼度を高く見る</li>
@@ -134,7 +146,7 @@ export default async function RankingPage({
             </p>
           </div>
         </div>
-        <CtaBanner title="上位スクールを一度に比較できます" />
+        <CtaBanner title="上位スクールを一度に比較できます" subtitle="気になるスクールをまとめて比較しよう" />
       </div>
     </div>
   );

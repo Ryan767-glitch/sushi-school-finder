@@ -1,12 +1,13 @@
 import Link from "next/link";
 import type { School } from "@/types";
 import { yenFrom, styleLabel, levelLabel } from "@/lib/format";
-import { Pill } from "@/components/ui/Badge";
+import { Pill, SchoolBadge } from "@/components/ui/Badge";
 import { FavoriteButton } from "./FavoriteButton";
 import { CompareButton } from "./CompareButton";
 import { GoogleRating } from "@/components/ui/GoogleRating";
 import { OfficialInquiry } from "./OfficialInquiry";
 import { schoolPhoto } from "@/lib/school-media";
+import { Icon } from "@/components/ui/Icon";
 
 export function SchoolListItem({ school }: { school: School }) {
   return (
@@ -14,6 +15,11 @@ export function SchoolListItem({ school }: { school: School }) {
       <div className="relative md:w-56 shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={schoolPhoto(school)} alt={`${school.name}の写真`} className="h-40 md:h-full w-full object-cover rounded-xl bg-soft" />
+        <div className="absolute top-2 left-2 flex gap-1">
+          {school.badges.map((b) => (
+            <SchoolBadge key={b} id={b} />
+          ))}
+        </div>
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
@@ -43,11 +49,11 @@ export function SchoolListItem({ school }: { school: School }) {
         <div className="mt-3 flex flex-wrap items-end justify-between gap-3">
           <div className="flex flex-wrap gap-5 text-sm">
             <div>
-              <p className="text-[11px] text-muted">受講料</p>
+              <p className="text-[11px] text-muted inline-flex items-center gap-1"><Icon name="yen" size={12} />受講料</p>
               <p className="font-extrabold">{yenFrom(school.tuitionFrom)}</p>
             </div>
             <div>
-              <p className="text-[11px] text-muted">期間</p>
+              <p className="text-[11px] text-muted inline-flex items-center gap-1"><Icon name="calendar" size={12} />期間</p>
               <p className="font-bold">
                 {school.durationMonthsFrom === school.durationMonthsTo
                   ? `${school.durationMonthsFrom}ヶ月`
@@ -55,7 +61,7 @@ export function SchoolListItem({ school }: { school: School }) {
               </p>
             </div>
             <div>
-              <p className="text-[11px] text-muted">レベル</p>
+              <p className="text-[11px] text-muted inline-flex items-center gap-1"><Icon name="chart" size={12} />レベル</p>
               <p className="font-bold">{school.levels.map(levelLabel).join("〜")}</p>
             </div>
             <div>

@@ -3,6 +3,7 @@ import { reviews, reviewHighlights } from "@/data/reviews";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { StarRating } from "@/components/ui/StarRating";
 import { DATA_AS_OF } from "@/lib/format";
+import { Icon } from "@/components/ui/Icon";
 
 export const metadata = { title: "受講生の口コミ・評判" };
 
@@ -80,7 +81,7 @@ export default function ReviewsPage() {
         </div>
         <aside className="space-y-4">
           <div className="card p-4">
-            <h2 className="font-extrabold">受講生の声（ハイライト）</h2>
+            <h2 className="font-extrabold inline-flex items-center gap-2"><Icon name="quote" size={18} />受講生の声（ハイライト）</h2>
             {reviewHighlights.map((h) => (
               <blockquote key={h.quote} className="mt-4 text-sm">
                 「{h.quote}」
@@ -91,7 +92,7 @@ export default function ReviewsPage() {
           <div className="card p-4 bg-soft-blue">
             <p className="font-bold">口コミは参考に、最終確認は公式と現地で</p>
             <p className="text-sm mt-2">体験レッスンとGoogleマップの最新口コミを必ず見てください。</p>
-            <Link href="/inquiry" className="btn-coral w-full mt-3 text-sm">公式の資料請求一覧</Link>
+            <Link href="/inquiry" className="btn-coral w-full mt-3 text-sm"><Icon name="envelope" size={14} className="text-white" />公式の資料請求一覧</Link>
           </div>
         </aside>
       </div>

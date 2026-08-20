@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toSearchParams, type SearchQuery } from "@/lib/search";
+import { Icon } from "@/components/ui/Icon";
 
 const selectCls = "w-full px-3 py-2.5 text-sm";
 
@@ -47,7 +48,7 @@ export function SearchPanel({
     <form onSubmit={submit} className="card p-4 md:p-5 shadow-sm">
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <label className="text-xs font-bold text-muted">
-          受講スタイル
+          <span className="inline-flex items-center gap-1"><Icon name="commute" size={14} />受講スタイル</span>
           <select className={`${selectCls} mt-1`} value={style} onChange={(e) => setStyle(e.target.value as NonNullable<SearchQuery["style"]>)}>
             <option value="all">指定なし</option>
             <option value="commute">通学</option>
@@ -56,7 +57,7 @@ export function SearchPanel({
           </select>
         </label>
         <label className="text-xs font-bold text-muted">
-          費用
+          <span className="inline-flex items-center gap-1"><Icon name="yen" size={14} />費用</span>
           <select className={`${selectCls} mt-1`} value={tuition} onChange={(e) => setTuition(e.target.value as NonNullable<SearchQuery["tuition"]>)}>
             <option value="all">指定なし</option>
             <option value="lt30">30万円未満</option>
@@ -66,7 +67,7 @@ export function SearchPanel({
           </select>
         </label>
         <label className="text-xs font-bold text-muted">
-          期間
+          <span className="inline-flex items-center gap-1"><Icon name="calendar" size={14} />期間</span>
           <select className={`${selectCls} mt-1`} value={duration} onChange={(e) => setDuration(e.target.value as NonNullable<SearchQuery["duration"]>)}>
             <option value="all">指定なし</option>
             <option value="lt3">3ヶ月未満</option>
@@ -75,7 +76,7 @@ export function SearchPanel({
           </select>
         </label>
         <label className="text-xs font-bold text-muted">
-          対象レベル
+          <span className="inline-flex items-center gap-1"><Icon name="chart" size={14} />対象レベル</span>
           <select className={`${selectCls} mt-1`} value={level} onChange={(e) => setLevel(e.target.value as NonNullable<SearchQuery["level"]>)}>
             <option value="all">指定なし</option>
             <option value="beginner">初心者向け</option>
@@ -84,7 +85,7 @@ export function SearchPanel({
           </select>
         </label>
         <label className="text-xs font-bold text-muted">
-          英語対応
+          <span className="inline-flex items-center gap-1"><Icon name="globe" size={14} />英語対応</span>
           <select className={`${selectCls} mt-1`} value={english} onChange={(e) => setEnglish(e.target.value as NonNullable<SearchQuery["english"]>)}>
             <option value="all">問わない</option>
             <option value="yes">あり</option>
@@ -103,6 +104,7 @@ export function SearchPanel({
           こだわり条件を追加
         </button>
         <button type="submit" className="btn-coral whitespace-nowrap">
+          <Icon name="search" size={16} className="text-white" />
           {actionLabel}
         </button>
       </div>

@@ -5,6 +5,7 @@ import { SchoolListItem } from "@/components/school/SchoolListItem";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 import { filterSchools, parseSearch } from "@/lib/search";
 import { schools } from "@/data/schools";
+import { Icon } from "@/components/ui/Icon";
 
 export const metadata = { title: "スクールを探す" };
 
@@ -32,17 +33,23 @@ export default async function SchoolsPage({
           <div className="card p-4">
             <p className="font-bold mb-3">人気の条件から探す</p>
             <div className="flex flex-col gap-2 text-sm">
-              <Link href="/schools?q=東京" className="text-blue">東京</Link>
-              <Link href="/schools?intensive=1" className="text-blue">短期集中</Link>
-              <Link href="/schools?level=beginner" className="text-blue">初心者向け</Link>
-              <Link href="/schools?open=1" className="text-blue">開業支援あり</Link>
-              <Link href="/schools?english=yes" className="text-blue">英語対応</Link>
+              <Link href="/schools?q=東京" className="text-blue inline-flex items-center gap-2"><Icon name="pin" size={14} />東京</Link>
+              <Link href="/schools?intensive=1" className="text-blue inline-flex items-center gap-2"><Icon name="bolt" size={14} />短期集中</Link>
+              <Link href="/schools?level=beginner" className="text-blue inline-flex items-center gap-2"><Icon name="person" size={14} />初心者向け</Link>
+              <Link href="/schools?open=1" className="text-blue inline-flex items-center gap-2"><Icon name="store" size={14} />開業支援あり</Link>
+              <Link href="/schools?english=yes" className="text-blue inline-flex items-center gap-2"><Icon name="globe" size={14} />英語対応</Link>
             </div>
           </div>
           <div className="card p-4">
             <p className="font-bold mb-2">比較リスト</p>
             <p className="text-sm text-muted">気になる学校を最大5校まで追加して、一覧で比べられます。</p>
-            <Link href="/compare" className="btn-outline w-full mt-3 text-sm">比較リストを見る</Link>
+            <div className="flex justify-center my-4 text-blue/40">
+              <Icon name="scale" size={48} />
+            </div>
+            <Link href="/compare" className="btn-outline w-full mt-3 text-sm">
+              <Icon name="scale" size={14} />
+              比較リストを見る
+            </Link>
           </div>
         </aside>
         <div>
@@ -57,7 +64,7 @@ export default async function SchoolsPage({
           </div>
         </div>
       </div>
-      <CtaBanner title="気になる学校を比較して、あなたに最適な一校を見つけましょう。" />
+      <CtaBanner title="気になる学校を比較して、あなたに最適な一校を見つけましょう。" subtitle="最大5校まで比較できます" />
     </div>
   );
 }

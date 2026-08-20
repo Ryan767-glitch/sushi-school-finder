@@ -22,8 +22,9 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-line">
       <div className="container-page flex items-center justify-between h-[68px] gap-4">
         <Link href="/" className="flex items-center gap-2.5 min-w-0">
-          <span className="w-9 h-9 rounded-full bg-navy text-white grid place-items-center text-sm font-black shrink-0">
-            S
+          <span className="relative w-9 h-9 rounded-full overflow-hidden border border-line shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logo-nigiri.jpg" alt="" className="w-full h-full object-cover" />
           </span>
           <span className="leading-tight">
             <span className="block text-[15px] font-extrabold tracking-wide">SUSHI SCHOOL FINDER</span>

@@ -1,5 +1,6 @@
 import { getInquiryUrl } from "@/lib/school-media";
 import type { School } from "@/types";
+import { Icon } from "@/components/ui/Icon";
 
 export function OfficialInquiry({
   school,
@@ -14,6 +15,7 @@ export function OfficialInquiry({
   if (!href) return null;
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      <Icon name="envelope" size={14} className="text-current" />
       {label}
     </a>
   );

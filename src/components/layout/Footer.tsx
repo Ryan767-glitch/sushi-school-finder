@@ -6,7 +6,13 @@ export function Footer() {
     <footer className="mt-20 border-t border-line bg-soft">
       <div className="container-page py-12 grid gap-10 md:grid-cols-4 text-sm">
         <div>
-          <p className="font-extrabold">SUSHI SCHOOL FINDER</p>
+          <p className="font-extrabold inline-flex items-center gap-2">
+            <span className="relative w-8 h-8 rounded-full overflow-hidden border border-line shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/logo-nigiri.jpg" alt="" className="w-full h-full object-cover" />
+            </span>
+            SUSHI SCHOOL FINDER
+          </p>
           <p className="text-muted mt-2 leading-relaxed">
             日本全国の実在する寿司スクール・専門学校を、公開情報をもとに比較できるサイトです。学費・評価は目安です。最新情報は各校公式サイトでご確認ください。
           </p>

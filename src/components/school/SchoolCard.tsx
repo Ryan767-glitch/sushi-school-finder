@@ -1,10 +1,11 @@
 import Link from "next/link";
 import type { School } from "@/types";
 import { yenFrom, styleLabel } from "@/lib/format";
-import { Pill } from "@/components/ui/Badge";
+import { Pill, SchoolBadge } from "@/components/ui/Badge";
 import { GoogleRating } from "@/components/ui/GoogleRating";
 import { FavoriteButton } from "./FavoriteButton";
 import { schoolPhoto } from "@/lib/school-media";
+import { Icon } from "@/components/ui/Icon";
 
 export function SchoolCard({ school }: { school: School }) {
   return (
@@ -12,6 +13,11 @@ export function SchoolCard({ school }: { school: School }) {
       <div className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={schoolPhoto(school)} alt={`${school.name}の写真`} className="h-44 w-full object-cover bg-soft" />
+        <div className="absolute top-3 left-3 flex gap-1.5">
+          {school.badges.map((b) => (
+            <SchoolBadge key={b} id={b} />
+          ))}
+        </div>
         <div className="absolute top-3 right-3">
           <FavoriteButton slug={school.slug} compact />
         </div>
@@ -30,7 +36,10 @@ export function SchoolCard({ school }: { school: School }) {
           {school.englishSupport ? <Pill>英語対応</Pill> : null}
         </div>
         <div className="mt-auto pt-3 flex items-center justify-between text-sm">
-          <span className="text-muted">{school.styles.map(styleLabel).join("・")}</span>
+          <span className="text-muted inline-flex items-center gap-1">
+            <Icon name="commute" size={14} />
+            {school.styles.map(styleLabel).join("・")}
+          </span>
           <span className="font-extrabold">{yenFrom(school.tuitionFrom)}</span>
         </div>
       </div>

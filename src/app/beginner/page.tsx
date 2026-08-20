@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { Icon, type IconName } from "@/components/ui/Icon";
 
 export const metadata = { title: "はじめての方へ" };
 
@@ -25,13 +26,14 @@ export default function BeginnerPage() {
         <h2 className="text-xl font-extrabold mb-4">スクール選びの4ステップ</h2>
         <div className="grid md:grid-cols-4 gap-4">
           {[
-            ["1", "目的を決める", "趣味で学びたいのか、転職・独立を目指したいのか。まずは目的を明確にしましょう。"],
-            ["2", "条件を整理する", "通学エリアや学習期間、費用、サポート体制など、希望条件を洗い出しましょう。"],
-            ["3", "スクールを比較する", "複数の学校を比較して、カリキュラムや実績、口コミをチェックしましょう。"],
-            ["4", "公式で確認する", "体験や資料請求は、各校の公式サイトから直接申し込みましょう。"],
-          ].map(([n, t, d]) => (
-            <div key={n} className="card p-5">
+            ["1", "target", "目的を決める", "趣味で学びたいのか、転職・独立を目指したいのか。まずは目的を明確にしましょう。"],
+            ["2", "list", "条件を整理する", "通学エリアや学習期間、費用、サポート体制など、希望条件を洗い出しましょう。"],
+            ["3", "scale", "スクールを比較する", "複数の学校を比較して、カリキュラムや実績、口コミをチェックしましょう。"],
+            ["4", "envelope", "体験・資料請求をする", "気になる学校は公式サイトから体験入学や資料請求を申し込みましょう。"],
+          ].map(([n, icon, t, d]) => (
+            <div key={n} className="card p-5 text-center">
               <span className="inline-grid place-items-center w-8 h-8 rounded-full bg-blue text-white font-bold">{n}</span>
+              <div className="mt-3 flex justify-center"><Icon name={icon as IconName} size={36} /></div>
               <h3 className="font-extrabold mt-3">{t}</h3>
               <p className="text-sm text-muted mt-2">{d}</p>
             </div>
@@ -43,14 +45,15 @@ export default function BeginnerPage() {
         <h2 className="text-xl font-extrabold mb-4">はじめての方がチェックしたいポイント</h2>
         <div className="grid md:grid-cols-5 gap-3">
           {[
-            ["カリキュラム内容", "基礎から学べるか、実践中心かなど自分の目的に合っているかを確認。"],
-            ["講師・実績", "現役の職人や経験豊富な講師が在籍しているか、卒業生の進路もチェック。"],
-            ["学習スタイル・期間", "通学・オンライン・短期集中など、自分のライフスタイルに合った学び方を。"],
-            ["就職・独立サポート", "就職支援や独立サポートの有無。卒業後のサポート体制も重要なポイントです。"],
-            ["費用・支払い方法", "授業料の総額や支払い方法、分割払いの有無も忘れずに確認しましょう。"],
-          ].map(([t, d]) => (
-            <div key={t} className="card p-4">
-              <h3 className="font-extrabold">{t}</h3>
+            ["book", "カリキュラム内容", "基礎から学べるか、実践中心かなど自分の目的に合っているかを確認。"],
+            ["chef", "講師・実績", "現役の職人や経験豊富な講師が在籍しているか、卒業生の進路もチェック。"],
+            ["clock", "学習スタイル・期間", "通学・オンライン・短期集中など、自分のライフスタイルに合った学び方を。"],
+            ["handshake", "就職・独立サポート", "就職支援や独立サポートの有無。卒業後のサポート体制も重要なポイントです。"],
+            ["yen", "費用・支払い方法", "授業料の総額や支払い方法、分割払いの有無も忘れずに確認しましょう。"],
+          ].map(([icon, t, d]) => (
+            <div key={t} className="card p-4 text-center">
+              <Icon name={icon as IconName} size={32} />
+              <h3 className="font-extrabold mt-2">{t}</h3>
               <p className="text-sm text-muted mt-2">{d}</p>
             </div>
           ))}
@@ -61,9 +64,9 @@ export default function BeginnerPage() {
         <div className="card p-5">
           <h2 className="font-extrabold">学び方のスタイル</h2>
           <ul className="mt-3 space-y-3 text-sm">
-            <li><b>通学スタイル</b><br />実技をしっかり学びたい方におすすめ。</li>
-            <li><b>オンラインスタイル</b><br />全国どこからでも学べる講座。</li>
-            <li><b>短期集中スタイル</b><br />短期間で基礎を学びたい方に最適。</li>
+            <li className="flex gap-2"><Icon name="commute" size={18} /><span><b>通学スタイル</b><br />実技をしっかり学びたい方におすすめ。</span></li>
+            <li className="flex gap-2"><Icon name="laptop" size={18} /><span><b>オンラインスタイル</b><br />全国どこからでも学べる講座。</span></li>
+            <li className="flex gap-2"><Icon name="calendar" size={18} /><span><b>短期集中スタイル</b><br />短期間で基礎を学びたい方に最適。</span></li>
           </ul>
         </div>
         <div className="card p-5">
@@ -78,9 +81,9 @@ export default function BeginnerPage() {
         <div className="card p-5">
           <h2 className="font-extrabold">比較のポイント</h2>
           <ul className="mt-3 space-y-2 text-sm">
-            <li>カリキュラム・内容</li>
-            <li>サポート・実績</li>
-            <li>費用・通いやすさ</li>
+            <li className="flex items-center gap-2"><Icon name="book" size={16} />カリキュラム・内容</li>
+            <li className="flex items-center gap-2"><Icon name="person" size={16} />サポート・実績</li>
+            <li className="flex items-center gap-2"><Icon name="yen" size={16} />費用・通いやすさ</li>
           </ul>
         </div>
       </section>
@@ -96,6 +99,7 @@ export default function BeginnerPage() {
             "海外で活躍したい方",
           ].map((t) => (
             <div key={t} className="card p-4 text-center">
+              <div className="flex justify-center"><Icon name="person" size={40} /></div>
               <p className="font-bold mt-3 text-sm">{t}</p>
             </div>
           ))}
@@ -135,8 +139,8 @@ export default function BeginnerPage() {
       <section className="card p-6 mt-10 flex flex-col md:flex-row items-center justify-between gap-4 bg-soft-blue">
         <h2 className="text-xl font-extrabold">あなたにぴったりの寿司スクールを見つけよう</h2>
         <div className="flex gap-3">
-          <Link href="/schools" className="btn-coral">スクールを探す</Link>
-          <Link href="/favorites" className="btn-outline">お気に入り</Link>
+          <Link href="/schools" className="btn-coral"><Icon name="search" size={16} className="text-white" />スクールを探す</Link>
+          <Link href="/favorites" className="btn-outline"><Icon name="heart" size={16} className="text-coral" />お気に入り</Link>
         </div>
       </section>
     </div>
