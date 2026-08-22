@@ -118,3 +118,37 @@ input:focus, select:focus, textarea:focus {
 }
 
 ::selection { background: #ffd5d2; }
+
+.japan-map-svg {
+  display: block;
+  pointer-events: none;
+}
+.japan-map-svg .pref polygon,
+.japan-map-svg .pref path {
+  stroke: #ffffff;
+  stroke-width: 1.15;
+  stroke-linejoin: round;
+  fill: inherit;
+}
+.japan-map-svg .japan-region {
+  fill: #c5d9f8;
+  cursor: pointer;
+  outline: none;
+  pointer-events: auto;
+  transition: fill .15s ease, opacity .15s ease;
+}
+.japan-map-svg .japan-region--hokkaido-tohoku { fill: #9ec4ff; }
+.japan-map-svg .japan-region--kanto { fill: #3d82f0; }
+.japan-map-svg .japan-region--koshinetsu { fill: #b7d4ff; }
+.japan-map-svg .japan-region--tokai { fill: #6aa4f4; }
+.japan-map-svg .japan-region--kansai { fill: #2f6fed; }
+.japan-map-svg .japan-region--chugoku-shikoku { fill: #d5e5fb; }
+.japan-map-svg .japan-region--kyushu-okinawa { fill: #5b97ed; }
+.japan-map-svg .japan-region:hover,
+.japan-map-svg .japan-region.is-active,
+.japan-map-svg .japan-region:focus-visible { fill: var(--coral); }
+.japan-map-svg .japan-region.is-dim { opacity: .45; }
+.japan-map-svg .pref-okinawa polygon,
+.japan-map-svg .pref-okinawa path {
+  stroke-width: 2.4;
+}

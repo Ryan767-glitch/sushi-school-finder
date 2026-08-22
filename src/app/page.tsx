@@ -4,7 +4,6 @@ import { SchoolCard } from "@/components/school/SchoolCard";
 import { JapanMap } from "@/components/school/JapanMap";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 import { featuredSchools, schoolCount } from "@/data/schools";
-import { reviewHighlights } from "@/data/reviews";
 import { stats } from "@/lib/search";
 import { DATA_AS_OF } from "@/lib/format";
 import { Icon, type IconName } from "@/components/ui/Icon";
@@ -61,31 +60,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="container-page mt-16 grid lg:grid-cols-2 gap-8">
-        <div>
-          <div className="flex items-end justify-between mb-4">
-            <h2 className="text-xl font-extrabold">受講生の声</h2>
-            <Link href="/reviews" className="text-sm font-bold text-blue">
-              すべての口コミを見る →
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {reviewHighlights.map((r) => (
-              <article key={r.quote} className="card p-4 flex gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={r.avatar} alt="" className="w-12 h-12 rounded-full object-cover" />
-                <div>
-                  <p className="font-bold">{r.quote}</p>
-                  <p className="text-xs text-muted mt-1">{r.meta}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+      <section className="container-page mt-16">
+        <div className="mb-5">
+          <h2 className="text-xl font-extrabold">エリアから探す</h2>
+          <p className="text-sm text-muted mt-1">日本地図の地方を選ぶと、そのエリアのスクール一覧へ移動します。</p>
         </div>
-        <div>
-          <h2 className="text-xl font-extrabold mb-4">エリアから探す</h2>
-          <JapanMap />
-        </div>
+        <JapanMap />
       </section>
 
       <section className="container-page mt-16">
