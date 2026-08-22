@@ -65,6 +65,28 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </ol>
         </aside>
         <article className="max-w-3xl">
+          {a.intro?.length ? (
+            <div className="mb-10">
+              {a.intro.map((p) => (
+                <p key={p.ja} className="mt-3 leading-8 text-[17px]">
+                  {tx(locale, p)}
+                </p>
+              ))}
+            </div>
+          ) : null}
+          {a.keyPoints?.length ? (
+            <div className="mb-10 rounded-2xl border border-line bg-soft p-5">
+              <p className="font-extrabold">{t(locale, "keyPoints")}</p>
+              <ul className="mt-3 space-y-2 text-[15px] leading-7">
+                {a.keyPoints.map((p) => (
+                  <li key={p.ja} className="flex gap-2">
+                    <span className="text-blue font-black mt-[2px]">・</span>
+                    <span>{tx(locale, p)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
           {a.sections.map((s, i) => (
             <section key={tx("ja", s.heading)} id={`s${i}`} className="mb-10">
               <h2 className="text-2xl font-extrabold">
@@ -76,6 +98,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   {tx(locale, p)}
                 </p>
               ))}
+              {s.bullets?.length ? (
+                <ul className="mt-4 space-y-2 leading-7 pl-1">
+                  {s.bullets.map((b) => (
+                    <li key={b.ja} className="flex gap-2">
+                      <span className="text-blue font-black mt-[2px]">・</span>
+                      <span>{tx(locale, b)}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
               {s.tip ? (
                 <div className="mt-4 rounded-xl bg-soft-blue p-4 text-sm">
                   <p className="font-bold">{t(locale, "point")}</p>

@@ -6,6 +6,13 @@ export type Source = {
   publisher: string;
 };
 
+export type ArticleSection = {
+  heading: Loc;
+  body: Loc[];
+  bullets?: Loc[];
+  tip?: Loc;
+};
+
 export type Article = {
   slug: string;
   kind: "guide" | "feature";
@@ -17,7 +24,9 @@ export type Article = {
   readMinutes: number;
   related: string[];
   sources?: Source[];
-  sections: { heading: Loc; body: Loc[]; tip?: Loc }[];
+  intro?: Loc[];
+  keyPoints?: Loc[];
+  sections: ArticleSection[];
 };
 
 export const L = (ja: string, en: string): Loc => ({ ja, en });
