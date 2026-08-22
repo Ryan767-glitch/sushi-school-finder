@@ -4,13 +4,27 @@ export type Source = {
   title: string;
   url: string;
   publisher: string;
+  summary?: Loc;
+  quote?: Loc;
 };
 
 export type ArticleSection = {
   heading: Loc;
   body: Loc[];
+  quote?: {
+    text: Loc;
+    speaker?: Loc;
+    sourceTitle: string;
+    sourceUrl?: string;
+    sourcePublisher: string;
+  };
   bullets?: Loc[];
   tip?: Loc;
+  sourceLink?: {
+    label: Loc;
+    url: string;
+    publisher: string;
+  };
 };
 
 export type Article = {

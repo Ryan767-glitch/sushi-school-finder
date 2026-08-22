@@ -52,7 +52,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </div>
       <div className="container-page py-10 grid lg:grid-cols-[240px_1fr] gap-8">
-        <aside className="card p-4 h-fit">
+        <aside className="card p-4 h-fit sticky top-20">
           <p className="font-bold mb-3">{t(locale, "toc")}</p>
           <ol className="space-y-2 text-sm">
             {a.sections.map((s, i) => (
@@ -62,11 +62,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </a>
               </li>
             ))}
+            {a.sources?.length ? (
+              <li className="pt-2 border-t border-line">
+                <a href="#sources" className="text-blue font-bold hover:underline">
+                  🔗 {t(locale, "sources")}
+                </a>
+              </li>
+            ) : null}
           </ol>
         </aside>
         <article className="max-w-3xl">
           {a.intro?.length ? (
-            <div className="mb-10">
+            <div className="mb-8">
               {a.intro.map((p) => (
                 <p key={p.ja} className="mt-3 leading-8 text-[17px]">
                   {tx(locale, p)}
@@ -76,7 +83,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           ) : null}
           {a.keyPoints?.length ? (
             <div className="mb-10 rounded-2xl border border-line bg-soft p-5">
-              <p className="font-extrabold">{t(locale, "keyPoints")}</p>
+              <p className="font-extrabold text-ink flex items-center gap-2">
+                <span className="text-blue">📌</span>
+                {t(locale, "keyPoints")}
+              </p>
               <ul className="mt-3 space-y-2 text-[15px] leading-7">
                 {a.keyPoints.map((p) => (
                   <li key={p.ja} className="flex gap-2">
@@ -88,20 +98,38 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
           ) : null}
           {a.sections.map((s, i) => (
-            <section key={tx("ja", s.heading)} id={`s${i}`} className="mb-10">
-              <h2 className="text-2xl font-extrabold">
+            <section key={tx("ja", s.heading)} id={`s${i}`} className="mb-12">
+              <h2 className="text-2xl font-extrabold pb-2 border-b border-line/60">
                 <span className="text-blue mr-2">{i + 1}</span>
                 {tx(locale, s.heading)}
               </h2>
               {s.body.map((p) => (
-                <p key={p.ja} className="mt-3 leading-8">
+                <p key={p.ja} className="mt-4 leading-8 text-[16px]">
                   {tx(locale, p)}
                 </p>
               ))}
+              {s.quote ? (
+                <blockquote className="my-5 rounded-xl border-l-4 border-blue bg-soft p-4 text-[15px] leading-7">
+                  <div className="flex items-center gap-2 text-xs font-bold text-blue mb-1">
+                    <span>💬 {t(locale, "quote")}</span>
+                    {s.quote.speaker ? <span>({tx(locale, s.quote.speaker)})</span> : null}
+                  </div>
+                  <p className="italic text-ink font-medium">“{tx(locale, s.quote.text)}”</p>
+                  <p className="text-xs text-muted mt-2 text-right">
+                    出典: {s.quote.sourceUrl ? (
+                      <a href={s.quote.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-blue hover:underline font-bold">
+                        {s.quote.sourceTitle}（{s.quote.sourcePublisher}）↗
+                      </a>
+                    ) : (
+                      <span>{s.quote.sourceTitle}（{s.quote.sourcePublisher}）</span>
+                    )}
+                  </p>
+                </blockquote>
+              ) : null}
               {s.bullets?.length ? (
-                <ul className="mt-4 space-y-2 leading-7 pl-1">
+                <ul className="mt-4 space-y-2 leading-7 pl-1 bg-soft/60 rounded-xl p-4">
                   {s.bullets.map((b) => (
-                    <li key={b.ja} className="flex gap-2">
+                    <li key={b.ja} className="flex gap-2 text-[15px]">
                       <span className="text-blue font-black mt-[2px]">・</span>
                       <span>{tx(locale, b)}</span>
                     </li>
@@ -110,26 +138,72 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               ) : null}
               {s.tip ? (
                 <div className="mt-4 rounded-xl bg-soft-blue p-4 text-sm">
-                  <p className="font-bold">{t(locale, "point")}</p>
-                  <p className="mt-1">{tx(locale, s.tip)}</p>
+                  <p className="font-bold text-blue flex items-center gap-1">💡 {t(locale, "point")}</p>
+                  <p className="mt-1 leading-6">{tx(locale, s.tip)}</p>
+                </div>
+              ) : null}
+              {s.sourceLink ? (
+                <div className="mt-4 p-3 rounded-xl border border-line bg-white flex items-center justify-between gap-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted text-xs font-bold px-2 py-0.5 rounded bg-soft">{s.sourceLink.publisher}</span>
+                    <span className="font-bold text-ink">{tx(locale, s.sourceLink.label)}</span>
+                  </div>
+                  <a
+                    href={s.sourceLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline text-xs py-1 px-3 whitespace-nowrap shrink-0 hover:border-blue hover:text-blue"
+                  >
+                    元記事を見る ↗
+                  </a>
                 </div>
               ) : null}
             </section>
           ))}
           {a.sources?.length ? (
-            <section className="mt-12 rounded-2xl border border-line bg-soft p-5">
-              <h2 className="text-lg font-extrabold">{t(locale, "sources")}</h2>
-              <p className="text-sm text-muted mt-2 leading-7">{t(locale, "sourcesNote")}</p>
-              <ol className="mt-4 space-y-2 text-sm list-decimal pl-5">
+            <section id="sources" className="mt-14 rounded-2xl border border-line bg-soft p-6">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">📰</span>
+                <h2 className="text-xl font-extrabold">{t(locale, "sources")}</h2>
+              </div>
+              <p className="text-xs text-muted mt-2 leading-6">{t(locale, "sourcesNote")}</p>
+              <div className="mt-5 space-y-4">
                 {a.sources.map((src) => (
-                  <li key={src.url}>
-                    <a href={src.url} target="_blank" rel="noopener noreferrer" className="text-blue font-bold hover:underline">
-                      {src.title}
-                    </a>
-                    <span className="text-muted"> — {src.publisher}</span>
-                  </li>
+                  <div key={src.url} className="p-4 rounded-xl border border-line bg-white shadow-xs">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div>
+                        <span className="text-[11px] font-bold text-blue uppercase tracking-wider px-2 py-0.5 rounded bg-soft-blue">
+                          {src.publisher}
+                        </span>
+                        <h3 className="font-bold text-base mt-1 text-ink">
+                          {src.title}
+                        </h3>
+                      </div>
+                      <a
+                        href={src.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-coral text-xs py-2 px-4 shrink-0 text-center flex items-center justify-center gap-1.5"
+                      >
+                        <span>{t(locale, "openOriginal")}</span>
+                        <span className="text-xs">↗</span>
+                      </a>
+                    </div>
+                    {src.quote ? (
+                      <div className="mt-3 pt-3 border-t border-line/60 text-xs text-ink bg-soft/50 p-2.5 rounded-lg leading-relaxed">
+                        <span className="font-bold text-muted mr-1.5">【{t(locale, "quote")}】</span>
+                        <span>“{tx(locale, src.quote)}”</span>
+                      </div>
+                    ) : null}
+                    {src.summary ? (
+                      <p className="mt-2 text-xs text-muted leading-relaxed">
+                        <span className="font-bold mr-1">概要:</span>
+                        {tx(locale, src.summary)}
+                      </p>
+                    ) : null}
+                  </div>
                 ))}
-              </ol>
+              </div>
             </section>
           ) : null}
         </article>

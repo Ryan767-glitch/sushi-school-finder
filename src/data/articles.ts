@@ -19,6 +19,20 @@ const guides: Article[] = [
     image: "/images/nigiri-real.jpg",
     readMinutes: 10,
     related: ["sushi-school-types", "tuition-guide", "is-ten-year-apprenticeship-required"],
+    sources: [
+      {
+        title: "寿司職人になるには｜修行ルート・学校・資格",
+        url: "https://careergarden.jp/sushishokunin/naruniha/",
+        publisher: "キャリアガーデン",
+        summary: L("未経験から寿司職人を目指す3大ルート（弟子入り・専門学校・短期スクール）の特徴と選び方の総合解説。", "Comprehensive guide on three major routes (apprenticeship, college, academy) from zero experience."),
+      },
+      {
+        title: "東京すしアカデミー 公式サイト",
+        url: "https://www.sushiacademy.co.jp/",
+        publisher: "東京すしアカデミー",
+        summary: L("未経験から2ヶ月で基礎を固める集中コースや週末専科コースの募集要項と就職支援制度。", "Official syllabus and career support details for 2-month intensive and weekend courses."),
+      },
+    ],
     intro: [
       L(
         "未経験から寿司職人を目指す入口は、大きく三つです。店に弟子入りする、学校に通う、独学で始める。法律上の必須資格はないので、どれでも「握ること」自体は始められます。違うのは、誰が基礎を直してくれるか、学費と生活費の出方、卒業（または就職）のあとに立つ場所です。",
@@ -67,6 +81,20 @@ const guides: Article[] = [
     image: "/images/counter-real.jpg",
     readMinutes: 8,
     related: ["how-to-become-sushi-chef", "three-months-vs-two-years", "tuition-guide"],
+    sources: [
+      {
+        title: "【2025年版】寿司専門学校の真実",
+        url: "https://insyokujin.ac/recommend/5985/",
+        publisher: "飲食人大学",
+        summary: L("専門学校と短期スクールのカリキュラム構成、免許の有無、通学期間を徹底比較。", "Comprehensive comparison of college vs academy curricula, certification, and timeline."),
+      },
+      {
+        title: "東京すし和食調理専門学校 公式サイト",
+        url: "https://www.sushi-tokyo.jp/",
+        publisher: "東京すし和食調理専門学校",
+        summary: L("認可調理師専門学校における2年〜3年制の総合教育プログラムと調理師免許取得案内。", "Official details on licensed 2-3 year degree programs and cook's licensing."),
+      },
+    ],
     intro: [
       L(
         "「寿司スクール」という言葉の中に、全く別の商品が四つ入っています。認可専門学校、数ヶ月のアカデミー、仕事を辞めない教室型、オンラインです。比較表に並べる前に、自分が買おうとしているのがどれかを決めると、学費の桁が狂いにくくなります。",
@@ -109,6 +137,20 @@ const guides: Article[] = [
     image: "/images/nigiri-real.jpg",
     readMinutes: 8,
     related: ["how-to-become-sushi-chef", "three-months-vs-two-years"],
+    sources: [
+      {
+        title: "東京すしアカデミー コース・学費一覧",
+        url: "https://www.sushiacademy.co.jp/",
+        publisher: "東京すしアカデミー",
+        summary: L("集中特訓コース、週末コース、ディプロマコースの公式受講料・教材費・入学金一覧。", "Official fee breakdown including enrollment, tuition, and knife kit fees."),
+      },
+      {
+        title: "飲食人大学 募集要項・受講料",
+        url: "https://insyokujin.ac/",
+        publisher: "飲食人大学",
+        summary: L("寿司マイスター専科（3ヶ月）の学費および特待生制度・分割払いの案内。", "Official tuition and installment options for Sushi Meister 3-month course."),
+      },
+    ],
     intro: [
       L(
         "公開されている学費は、授業料の下限だけが出ていることが多いです。入学金、包丁、白衣、教材、体験レッスン、住居、休職中の生活費を足すと、見た目の「何万円」から総額が動きます。当サイトの学校ページの金額は2026年8月の公開情報の目安です。最新額は公式で確認してください。",
@@ -150,6 +192,14 @@ const guides: Article[] = [
     image: "/images/hero-real.jpg",
     readMinutes: 8,
     related: ["who-fits", "school-then-shop-hybrid"],
+    sources: [
+      {
+        title: "寿司職人の一日・仕事内容",
+        url: "https://careergarden.jp/sushishokunin/ichinichi/",
+        publisher: "キャリアガーデン",
+        summary: L("早朝の市場仕入れ、仕込み、ランチ営業、ディナー営業、片付け・締め作業のタイムスケジュール解説。", "Detailed daily schedule covering morning fish market sourcing, prep, lunch/dinner service, and closing."),
+      },
+    ],
     intro: [
       L(
         "学校の授業で目立つのは握りです。店に入ると、一日の大半は仕入れと仕込みと片付けです。昼と夜のあいだに休憩がある店もあれば、通しの店もあります。学校を選ぶ前に、卒業後の「普通の一日」を知っておくと、授業の楽しさと仕事の適性を混ぜにくくなります。",
@@ -191,6 +241,14 @@ const guides: Article[] = [
     image: "/images/nigiri-real.jpg",
     readMinutes: 7,
     related: ["career-paths", "how-to-become-sushi-chef"],
+    sources: [
+      {
+        title: "寿司職人に向いている人・適性",
+        url: "https://careergarden.jp/sushishokunin/tekisei/",
+        publisher: "キャリアガーデン",
+        summary: L("手先の器用さ以上に求められる衛生観念、体力、反復への忍耐力、コミュニケーション能力の解説。", "Analysis of key attributes: hygiene rigor, stamina, patience for repetition, and communication."),
+      },
+    ],
     intro: [
       L(
         "寿司職人に向いている人、という話は「手先が器用」で終わりがちです。公開されている現場の話と、学校が繰り返し言うことを重ねると、残る人の条件は別です。同じ工程を丁寧に繰り返せる、清潔、立ち仕事、不規則な時間です。最初の数年の収入はパンフレットに出にくいので、店で食事して観察する方が早いです。",
