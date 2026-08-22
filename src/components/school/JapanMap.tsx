@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { schools, regions as regionMeta } from "@/data/schools";
 import type { RegionId } from "@/types";
+import { t, ui, type Locale } from "@/lib/locale";
 
 const MAP_REGIONS: { id: RegionId; short: string; x: string; y: string }[] = [
   { id: "hokkaido-tohoku", short: "北海道・東北", x: "76%", y: "16%" },
@@ -18,7 +19,18 @@ const MAP_REGIONS: { id: RegionId; short: string; x: string; y: string }[] = [
   { id: "kyushu-okinawa", short: "九州", x: "14%", y: "80%" },
 ];
 
-export function JapanMap() {
+const REGION_UI: Record<string, keyof typeof ui> = {
+  "hokkaido-tohoku": "rHokkaido",
+  kanto: "rKanto",
+  koshinetsu: "rKoshinetsu",
+  tokai: "rTokai",
+  kansai: "rKansai",
+  "chugoku-shikoku": "rChugoku",
+  "kyushu-okinawa": "rKyushu",
+  online: "rOnline",
+};
+
+export function JapanMap({ locale = "ja" }: { locale?: Locale }) {
   const [hovered, setHovered] = useState<RegionId | null>(null);
 
   const counts = useMemo(() => {
@@ -343,7 +355,7 @@ export function JapanMap() {
             }`}
             style={{ left: r.x, top: r.y }}
           >
-            {r.short}
+            {locale === "en" ? (r.id === "hokkaido-tohoku" ? "Hokkaido / Tohoku" : r.id === "koshinetsu" ? "Koshinetsu" : r.id === "chugoku-shikoku" ? "Chugoku / Shikoku" : r.id === "kyushu-okinawa" ? "Kyushu" : r.short) : r.short}
           </span>
         ))}
         <span
@@ -354,10 +366,10 @@ export function JapanMap() {
           }`}
           style={{ left: "18%", top: "16%" }}
         >
-          沖縄
+          {t(locale, "rOkinawa")}
         </span>
         <p className="absolute bottom-3 right-4 text-[10px] text-muted/70">
-          地図の地方をクリックして検索
+          {t(locale, "mapHint")}
         </p>
       </div>
 
@@ -380,14 +392,16 @@ export function JapanMap() {
                 }`}
               >
                 <span>
-                  <span className="block text-sm font-extrabold">{r.label}</span>
+                  <span className="block text-sm font-extrabold">
+                    {REGION_UI[r.id] ? t(locale, REGION_UI[r.id]) : r.label}
+                  </span>
                   <span className={`block text-[11px] mt-0.5 ${active ? "text-white/80" : "text-muted"}`}>
                     {r.blurb}
                   </span>
                 </span>
                 <span className={`text-sm font-black tabular-nums ${active ? "text-white" : "text-navy"}`}>
                   {n}
-                  <span className="text-[11px] font-bold ml-0.5">校</span>
+                  <span className="text-[11px] font-bold ml-0.5">{t(locale, "schoolsWord")}</span>
                 </span>
               </Link>
             </li>

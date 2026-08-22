@@ -1,194 +1,122 @@
-export type Article = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  category: string;
-  author: string;
-  authorRole: string;
-  image: string;
-  readMinutes: number;
-  related: string[];
-  sections: { heading: string; body: string[]; tip?: string }[];
-};
+import { L, type Article } from "./article-types";
+import { featureArticles } from "./article-features";
 
-export const articles: Article[] = [
+const catGuide = L("スクール選び", "Choosing a school");
+const catFee = L("費用", "Tuition");
+const catJob = L("職業ガイド", "The job");
+
+const guides: Article[] = [
   {
     slug: "how-to-become-sushi-chef",
-    title: "未経験から寿司職人になるには？スクール選びのコツを徹底解説",
-    excerpt:
-      "寿司職人を目指すなら、店での修行・スクール・独学の3ルートがあります。未経験者が学校を選ぶときに見るべきポイントを整理しました。",
+    kind: "guide",
+    title: L("未経験から寿司職人になるには？スクール選びのコツ", "How to become a sushi chef from zero"),
+    excerpt: L(
+      "店での修行・スクール・独学の3ルート。未経験者が学校を選ぶときに見るべきポイントを整理しました。",
+      "Shop apprenticeship, school, or self-study. What beginners should check before paying tuition.",
+    ),
     date: "2026-08-01",
-    category: "スクール選び",
-    author: "SUSHI SCHOOL FINDER 編集部",
-    authorRole: "公開情報の調査・編集",
+    category: catGuide,
     image: "/images/nigiri-real.jpg",
     readMinutes: 8,
-    related: ["sushi-school-types", "tuition-guide", "career-paths"],
+    related: ["sushi-school-types", "tuition-guide", "is-ten-year-apprenticeship-required"],
     sections: [
       {
-        heading: "未経験から寿司職人は目指せる？",
+        heading: L("未経験から目指せるか", "Can beginners actually do this?"),
         body: [
-          "結論から言えば、未経験から寿司職人になることは十分に可能です。多くのスクールや飲食店が未経験者を受け入れ、基礎から丁寧に育てる環境を整えています。",
-          "重要なのは「継続すること」と「基礎をしっかり学ぶこと」です。寿司は繊細な技術と経験の積み重ねが求められる世界ですが、正しい環境で学べば着実にステップアップできます。",
+          L("多くの短期校と一部の店は未経験を受け入れています。重要なのは継続と、基礎を誰かに直してもらう環境です。", "Many short schools and some shops accept beginners. What matters is staying with it, and having someone correct the basics."),
         ],
-        tip: "年齢や学歴は関係ありません。やる気と学ぶ姿勢があれば、誰でもスタートラインに立てます。",
+        tip: L("年齢や学歴より、通える時間と卒業後の働き方が先です。", "Hours you can attend and what you will do after graduation matter more than age or degrees."),
       },
       {
-        heading: "寿司職人に必要なスキルと心構え",
+        heading: L("学校で学べること、学べないこと", "What school teaches, and what it does not"),
         body: [
-          "魚の知識と目利きの力、正確な包丁技術と美しい握り、衛生管理や清潔感の徹底、集中力・忍耐力・向上心。技術だけでなく、お客様に満足していただくための心構えも大切です。",
-          "プロの現場では「毎日の小さな積み重ねが、自信と信頼につながる」と繰り返し語られます。焦らず、一つひとつの工程を大切にしましょう。",
-        ],
-      },
-      {
-        heading: "寿司スクールで学べること",
-        body: [
-          "学校では握りだけでなく、魚の捌き、シャリ、巻物、仕込み、衛生、原価、接客までを短期間で整理して学べます。店での見習いだけだと雑務が長く、技術に届くまでに年単位かかることもあります。",
-          "逆に学校だけでは反復量が足りないことが多いので、卒業後に店で働く・自分で魚を買って練習する、という二段構えが現実的です。",
-        ],
-      },
-      {
-        heading: "スクール選びの5つのコツ",
-        body: [
-          "1. 目的を決める（就職／独立／趣味／海外）。2. 通える場所と期間。3. 総額（入学金・教材・包丁）。4. 実習量と人数。5. 卒業後の支援。",
-          "口コミはGoogleマップや公式の卒業生紹介、取材記事を横断して見ると偏りが減ります。必ず体験や説明会で教室の空気を確認してください。",
-        ],
-      },
-      {
-        heading: "通学型とオンライン型の違い",
-        body: [
-          "通学型は手の感触や魚の状態をその場で修正してもらえます。オンラインは知識・経営・予習に強く、実技の主戦場にはなりにくいです。併用がもっとも無駄が少ない使い方です。",
-        ],
-      },
-      {
-        heading: "費用や期間の目安",
-        body: [
-          "趣味・入門は10万〜30万円、基礎〜中級の短期は30万〜80万円、プロ養成は80万〜150万円以上、認可専門学校は2年で300万〜400万円台が公開情報の目安です。",
-          "分割払いや教育ローン、専門学校の奨学金に対応している学校もあります。",
+          L("捌き、シャリ、握り、衛生、原価の入口までは圧縮できます。お客様の前での責任と、毎日の仕込みの量は店で積むものです。", "Schools can compress fish work, rice, nigiri, hygiene, and a first look at food cost. Responsibility in front of guests and daily prep volume still come from a shop."),
         ],
       },
     ],
   },
   {
     slug: "sushi-school-types",
-    title: "寿司スクールの種類と選び方 完全ガイド",
-    excerpt: "認可専門学校、短期アカデミー、教室型、オンライン。4タイプの違いを目的別に整理します。",
+    kind: "guide",
+    title: L("寿司スクールの種類と選び方", "Types of sushi schools"),
+    excerpt: L("認可専門学校、短期アカデミー、教室型、オンライン。4タイプの違いです。", "Licensed colleges, short academies, drop-in studios, and online. Four different products."),
     date: "2026-03-28",
-    category: "スクール選び",
-    author: "SUSHI SCHOOL FINDER 編集部",
-    authorRole: "公開情報の調査・編集",
+    category: catGuide,
     image: "/images/counter-real.jpg",
     readMinutes: 6,
-    related: ["how-to-become-sushi-chef", "tuition-guide"],
+    related: ["how-to-become-sushi-chef", "three-months-vs-two-years", "tuition-guide"],
     sections: [
       {
-        heading: "認可制専門学校",
+        heading: L("4タイプ", "Four types"),
         body: [
-          "調理師免許や学歴、奨学金、長い就職支援が強みです。東京すし和食調理専門学校や京都調理師専門学校が代表例です。時間と費用をかけられる進学層に向きます。",
-        ],
-      },
-      {
-        heading: "短期アカデミー",
-        body: [
-          "2〜6ヶ月で技術に特化します。東京すしアカデミーや飲食人大学がこの型です。転職・独立・海外を急ぐ人の主戦場です。",
-        ],
-      },
-      {
-        heading: "教室・回数券型",
-        body: [
-          "寿司日本橋やすし銀座おのでらアカデミーのように、1回から通える柔軟さがあります。仕事を辞めずに基礎を試したい人に向きます。",
-        ],
-      },
-      {
-        heading: "オンライン",
-        body: [
-          "寿司大学のように知識と資格、開業の座学を安く学べます。実技の主コースにはせず、補助教材として使うのがおすすめです。",
+          L("専門学校は免許と時間。短期アカデミーは技術の圧縮。教室型は仕事を辞めずに試す。オンラインは知識の補助です。", "Colleges sell licenses and time. Academies compress technique. Studios let you try without quitting work. Online is backup knowledge."),
         ],
       },
     ],
   },
   {
     slug: "tuition-guide",
-    title: "寿司学校の学費はいくらか？全国の公開料金を比較",
-    excerpt: "5万円台のオンラインから400万円の専門学校まで。総額で見るための考え方をまとめました。",
+    kind: "guide",
+    title: L("寿司学校の学費はいくらか", "What sushi school actually costs"),
+    excerpt: L("5万円台のオンラインから400万円の専門学校まで。総額で見る考え方です。", "From cheap online courses to four-million-yen colleges. Look at the full bill."),
     date: "2026-04-18",
-    category: "費用",
-    author: "SUSHI SCHOOL FINDER 編集部",
-    authorRole: "公開情報の調査・編集",
+    category: catFee,
     image: "/images/nigiri-real.jpg",
     readMinutes: 5,
-    related: ["how-to-become-sushi-chef", "career-paths"],
+    related: ["how-to-become-sushi-chef", "three-months-vs-two-years"],
     sections: [
       {
-        heading: "学費だけを見ない",
+        heading: L("授業料以外", "Beyond tuition"),
         body: [
-          "入学金、教材、包丁、白衣、住居、仕事を休む期間の生活費まで含めると、授業料の数字だけでは比べられません。",
-          "当サイトの金額は2026年8月時点の公開情報に基づく目安です。必ず公式で最新額を確認してください。",
-        ],
-      },
-      {
-        heading: "安い学校が悪いわけではない",
-        body: [
-          "1ヶ月50万円前後の学校は「基礎の点火」として優秀です。ただしプロとして食べていくには、その後の現場経験が必要です。高い学校は時間と支援が長い、と捉えると選びやすくなります。",
+          L("入学金、教材、包丁、白衣、住居、休職中の生活費を足してください。当サイトの金額は2026年8月の公開情報の目安です。", "Add enrollment fees, tools, whites, housing, and lost salary. Figures on this site are public-information estimates as of August 2026."),
         ],
       },
     ],
   },
   {
     slug: "career-paths",
-    title: "寿司職人の一日の流れは？仕事内容を詳しく解説",
-    excerpt: "仕入れ、仕込み、昼営業、夜のおまかせ。学校を出たあとに待っている仕事の実態を整理します。",
+    kind: "guide",
+    title: L("寿司職人の一日。学校のあとに待っている仕事", "A sushi chef’s day after school"),
+    excerpt: L("仕入れ、仕込み、昼、夜。握り以外が大半です。", "Buying fish, prep, lunch, dinner. Nigiri is only part of the shift."),
     date: "2026-04-10",
-    category: "職業ガイド",
-    author: "SUSHI SCHOOL FINDER 編集部",
-    authorRole: "公開情報の調査・編集",
+    category: catJob,
     image: "/images/hero-real.jpg",
     readMinutes: 6,
-    related: ["how-to-become-sushi-chef", "who-fits"],
+    related: ["who-fits", "school-then-shop-hybrid"],
     sections: [
       {
-        heading: "朝は仕入れと仕込み",
+        heading: L("朝と夜", "Morning and night"),
         body: [
-          "高級店や個人店では市場や業者からの仕入れ、米炊き、ネタの仕込みから一日が始まります。チェーン店では仕込み済みのネタが届くこともあり、学べる範囲が店によって全く違います。",
-        ],
-      },
-      {
-        heading: "昼と夜で求められるものが違う",
-        body: [
-          "昼は回転が速く、夜はおまかせや一品、接客の質が問われやすいです。学校で握りだけを学んでも、現場では掃除・発注・原価・会話が同時に求められます。",
+          L("個人店は仕入れと仕込みから始まります。夜はおまかせと接客の比重が上がります。学校の握り練習だけでは足りない理由です。", "Independent shops start with buying and prep. Night service adds omakase and hospitality. That is why nigiri drills at school are not the whole job."),
         ],
       },
     ],
   },
   {
     slug: "who-fits",
-    title: "寿司職人に向いている人の特徴5選",
-    excerpt: "手先の器用さより、清潔さ・反復・お客様への関心が続く人の方が長く残ります。",
+    kind: "guide",
+    title: L("向いている人、覚悟がいること", "Who lasts, and what is hard"),
+    excerpt: L("器用さより、清潔と反復が続く人の方が残ります。", "Clean habits and repetition outlast “good hands.”"),
     date: "2026-04-10",
-    category: "職業ガイド",
-    author: "SUSHI SCHOOL FINDER 編集部",
-    authorRole: "公開情報の調査・編集",
+    category: catJob,
     image: "/images/nigiri-real.jpg",
     readMinutes: 4,
     related: ["career-paths", "how-to-become-sushi-chef"],
     sections: [
       {
-        heading: "向いている人",
+        heading: L("続く人", "Who stays"),
         body: [
-          "同じ工程を丁寧に繰り返せる人、清潔感を保てる人、季節の魚に興味が続く人、立ち仕事と不規則な時間に耐える人、お客様の顔を見て調整できる人。",
-        ],
-      },
-      {
-        heading: "向かないわけではないが、覚悟がいること",
-        body: [
-          "夜型の生活、週末休みの少なさ、最初の数年の収入、立ちっぱなし。学校のパンフレットだけでは見えにくい部分なので、体験と店での食事・観察をセットにしてください。",
+          L("同じ工程を丁寧に繰り返せる、清潔、立ち仕事、不規則な時間。夜型と最初の数年の収入はパンフレットに出にくいので、店で食事して観察してください。", "People who repeat a process carefully, stay clean, and stand for long irregular hours. Night work and early pay are rarely on brochures. Eat in a shop and watch."),
         ],
       },
     ],
   },
 ];
 
+export const articles: Article[] = [...featureArticles, ...guides];
+
 export function getArticle(slug: string) {
   return articles.find((a) => a.slug === slug);
 }
+
+export type { Article, Source } from "./article-types";

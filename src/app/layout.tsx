@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AppStateProvider } from "@/context/AppState";
 import { CompareTray } from "@/components/school/CompareTray";
+import { getLocale } from "@/lib/get-locale";
 
 const jp = Noto_Sans_JP({
   variable: "--font-jp",
@@ -32,14 +33,15 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale();
   return (
-    <html lang="ja">
+    <html lang={locale}>
       <body className={`${jp.variable} antialiased min-h-screen flex flex-col`}>
         <AppStateProvider>
-          <Header />
+          <Header locale={locale} />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer locale={locale} />
           <CompareTray />
         </AppStateProvider>
       </body>

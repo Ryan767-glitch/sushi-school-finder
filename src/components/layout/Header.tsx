@@ -4,23 +4,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useAppState } from "@/context/AppState";
+import { t, type Locale } from "@/lib/locale";
+import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
 
-const nav = [
-  { href: "/schools", label: "スクールを探す" },
-  { href: "/compare", label: "比較する" },
-  { href: "/ranking", label: "ランキング" },
-  { href: "/articles", label: "特集・コラム" },
-  { href: "/beginner", label: "はじめての方へ" },
-];
-
-export function Header() {
+export function Header({ locale }: { locale: Locale }) {
   const path = usePathname();
   const { favorites } = useAppState();
   const [open, setOpen] = useState(false);
+  const nav = [
+    { href: "/schools", label: t(locale, "navSchools") },
+    { href: "/compare", label: t(locale, "navCompare") },
+    { href: "/ranking", label: t(locale, "navRanking") },
+    { href: "/articles", label: t(locale, "navArticles") },
+    { href: "/beginner", label: t(locale, "navBeginner") },
+  ];
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-line">
-      <div className="container-page flex items-center justify-between h-[68px] gap-4">
+      <div className="container-page flex items-center justify-between h-[68px] gap-3">
         <Link href="/" className="flex items-center gap-2.5 min-w-0">
           <span className="relative w-9 h-9 rounded-full overflow-hidden border border-line shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -28,11 +29,11 @@ export function Header() {
           </span>
           <span className="leading-tight">
             <span className="block text-[15px] font-extrabold tracking-wide">SUSHI SCHOOL FINDER</span>
-            <span className="block text-[10px] text-muted">寿司スクール比較・検索サイト</span>
+            <span className="block text-[10px] text-muted">{t(locale, "tagline")}</span>
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-6 text-[14px] font-medium">
+        <nav className="hidden lg:flex items-center gap-5 text-[14px] font-medium">
           {nav.map((n) => {
             const active = path === n.href || path.startsWith(n.href + "/");
             return (
@@ -49,9 +50,10 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitch locale={locale} />
           <Link href="/favorites" className="btn-outline !py-2 !px-3 text-sm">
             <HeartIcon />
-            <span className="hidden sm:inline">お気に入り</span>
+            <span className="hidden sm:inline">{t(locale, "favorites")}</span>
             <span className="min-w-5 h-5 rounded-full bg-coral text-white text-[11px] grid place-items-center">
               {favorites.length}
             </span>
@@ -59,7 +61,7 @@ export function Header() {
           <button
             type="button"
             className="lg:hidden w-10 h-10 rounded-lg border border-line grid place-items-center"
-            aria-label="メニュー"
+            aria-label={t(locale, "menu")}
             onClick={() => setOpen((v) => !v)}
           >
             <span className="flex flex-col gap-1.5">
@@ -79,10 +81,10 @@ export function Header() {
               </Link>
             ))}
             <Link href="/reviews" className="py-3 border-b border-line" onClick={() => setOpen(false)}>
-              口コミ
+              {t(locale, "reviews")}
             </Link>
             <Link href="/inquiry" className="py-3" onClick={() => setOpen(false)}>
-              資料請求
+              {t(locale, "inquiry")}
             </Link>
           </nav>
         </div>
